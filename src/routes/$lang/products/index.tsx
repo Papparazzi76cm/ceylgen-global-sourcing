@@ -125,7 +125,7 @@ function CatalogPage() {
                       <p className="mt-2 type-small text-muted-foreground line-clamp-3">{info.shortDescription}</p>
                       <div className="mt-4 flex flex-wrap gap-1.5">
                         {info.applications.slice(0, 3).map((a) => (
-                          <Badge key={a} tone="neutral" className="rounded-full">{a}</Badge>
+                          <Badge key={a} tone="neutral">{a}</Badge>
                         ))}
                       </div>
                       <div className="mt-5 flex items-center justify-between pt-4 border-t border-border">

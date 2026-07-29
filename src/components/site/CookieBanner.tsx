@@ -40,7 +40,7 @@ export function CookieBanner() {
     <div className="fixed inset-x-0 bottom-0 z-40 p-3 md:p-5 pointer-events-none">
       <Card tone="dark" className="mx-auto max-w-3xl border-champagne/20 shadow-[var(--shadow-elevated)] p-5 md:p-6 pointer-events-auto animate-fade-up">
         <div className="flex items-start gap-3">
-          <div className="hidden sm:flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-champagne/15 text-champagne">
+          <div className="hidden sm:flex h-10 w-10 shrink-0 items-center justify-center rounded-sm bg-champagne/15 text-champagne">
             <Cookie className="h-5 w-5" strokeWidth={1.6} />
           </div>
           <div className="flex-1 min-w-0">

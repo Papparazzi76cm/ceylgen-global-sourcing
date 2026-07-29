@@ -119,7 +119,7 @@ function ContactPage() {
           {sent ? (
             <Reveal>
               <div className="text-center py-8">
-                <div className="mx-auto h-14 w-14 rounded-full bg-turquoise/15 text-turquoise flex items-center justify-center">
+                <div className="mx-auto h-14 w-14 rounded-sm bg-turquoise/15 text-turquoise flex items-center justify-center">
                   <Check className="h-6 w-6" strokeWidth={1.6} />
                 </div>
                 <h3 className="mt-5 type-h2">{t("contact.form.success.title")}</h3>

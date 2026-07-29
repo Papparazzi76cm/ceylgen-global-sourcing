@@ -111,7 +111,7 @@ function ProductPage() {
         <h2 className="type-h2">{t("product.applications")}</h2>
         <div className="mt-6 flex flex-wrap gap-2">
           {info.applications.map((a) => (
-            <span key={a} className={cn("inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-sm bg-card", acc.border, acc.text)}>
+            <span key={a} className={cn("inline-flex items-center gap-1.5 rounded-sm border px-3 py-1.5 text-sm bg-card", acc.border, acc.text)}>
               <span className={cn("h-1.5 w-1.5 rounded-full", acc.bg)} />{a}
             </span>
           ))}
