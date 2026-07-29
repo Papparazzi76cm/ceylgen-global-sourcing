@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useI18n } from "@/i18n/context";
 import { LANGS, LANG_LABELS } from "@/i18n/translations";
 import { categories, categoryName } from "@/data/categories";
-import { BrandMark } from "./BrandMark";
+import { Wordmark } from "./BrandMark";
 import { MapPin } from "lucide-react";
 
 export function Footer() {
@@ -14,15 +14,7 @@ export function Footer() {
       <div className="container-page py-16 md:py-20">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           <div className="md:col-span-4">
-            <div className="flex items-center gap-2.5">
-              <BrandMark className="h-9 w-9 text-champagne" />
-              <div>
-                <div className="font-serif text-2xl tracking-tight">CEYLGEN</div>
-                <div className="text-[10px] uppercase tracking-[0.2em] text-champagne/80">
-                  {t("brand.tagline")}
-                </div>
-              </div>
-            </div>
+            <Wordmark size="md" onDark showTagline={true} />
             <p className="mt-6 text-sm text-ivory/70 max-w-sm leading-relaxed">
               {t("footer.desc")}
             </p>
