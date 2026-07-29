@@ -1,7 +1,11 @@
 import { createFileRoute, Outlet, Link, redirect, useNavigate } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
-import { LayoutDashboard, Package, Inbox, LogOut } from "lucide-react";
+import { LayoutDashboard, Package, Inbox, LogOut, ShieldCheck } from "lucide-react";
+import { useState } from "react";
+import { useServerFn } from "@tanstack/react-start";
+import { bootstrapFirstAdmin } from "@/lib/bootstrap-admin.functions";
+import { toast } from "sonner";
 
 export const Route = createFileRoute("/_authenticated")({
   ssr: false,
