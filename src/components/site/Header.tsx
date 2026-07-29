@@ -138,12 +138,15 @@ export function Header() {
               </div>
             )}
           </div>
-          <Button asChild variant="secondary" size="sm">
-            <Link to="/$lang/contact" params={{ lang }}>
-              {t("nav.request")}
-              <ArrowRight strokeWidth={1} />
-            </Link>
-          </Button>
+          <div className="hidden md:block lg:hidden xl:block">
+            <Button asChild variant="secondary" size="sm">
+              <Link to="/$lang/contact" params={{ lang }}>
+                {t("nav.request")}
+                <ArrowRight strokeWidth={1} />
+              </Link>
+            </Button>
+          </div>
+
         </div>
 
         <button
