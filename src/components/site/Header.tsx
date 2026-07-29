@@ -1,11 +1,12 @@
-import { Link, useLocation, useNavigate, useParams } from "@tanstack/react-router";
+import { Link, useLocation, useNavigate } from "@tanstack/react-router";
 import { useI18n } from "@/i18n/context";
 import { LANGS, LANG_LABELS, type Lang } from "@/i18n/translations";
 import { categories, categoryName } from "@/data/categories";
 import { useEffect, useState } from "react";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { BrandMark, Wordmark } from "./BrandMark";
+import { Wordmark } from "./BrandMark";
+import { Button } from "@/components/ds";
 
 const accentDot: Record<string, string> = {
   ocean: "bg-ocean",
@@ -73,33 +74,33 @@ export function Header() {
                 onMouseEnter={() => setProductsOpen(true)}
                 onMouseLeave={() => setProductsOpen(false)}>
                 <button
-                  className="flex items-center gap-1 px-3 py-2 text-sm font-medium text-foreground/85 hover:text-foreground transition-colors"
+                  className="flex items-center gap-1 px-3 py-2 type-small font-medium text-foreground/85 hover:text-foreground transition-colors"
                   onClick={() => setProductsOpen((v) => !v)}
                   aria-expanded={productsOpen}
                 >
                   {item.label}
-                  <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", productsOpen && "rotate-180")} />
+                  <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", productsOpen && "rotate-180")} strokeWidth={1.6} />
                 </button>
                 {productsOpen && (
                   <div className="absolute left-1/2 top-full -translate-x-1/2 pt-3 min-w-[720px]">
-                    <div className="rounded-lg border border-border bg-card shadow-[var(--shadow-elevated)] p-6 animate-fade-up">
+                    <div className="rounded-sm border border-border bg-card shadow-[var(--shadow-elevated)] p-6 animate-fade-up">
                       <div className="grid grid-cols-2 gap-3">
                         {categories.map((c) => (
                           <Link
                             key={c.slug}
                             to="/$lang/categories/$category"
                             params={{ lang, category: c.slug }}
-                            className="group flex items-start gap-3 rounded-md p-3 hover:bg-muted transition-colors"
+                            className="group flex items-start gap-3 rounded-sm p-3 hover:bg-muted transition-colors"
                           >
                             <span
                               className={cn("mt-1 h-2.5 w-2.5 rounded-full shrink-0", accentDot[c.accent])}
                               aria-hidden
                             />
                             <span className="flex flex-col gap-0.5 min-w-0">
-                              <span className="font-serif text-base text-foreground">
+                              <span className="type-h4 text-foreground">
                                 {categoryName(lang, c)}
                               </span>
-                              <span className="text-xs text-muted-foreground line-clamp-2">
+                              <span className="type-small text-muted-foreground line-clamp-2">
                                 {t(c.descKey)}
                               </span>
                             </span>
@@ -110,9 +111,9 @@ export function Header() {
                         <Link
                           to="/$lang/products"
                           params={{ lang }}
-                          className="text-sm font-medium text-primary inline-flex items-center gap-1 hover:gap-2 transition-all"
+                          className="type-small font-medium text-primary inline-flex items-center gap-1 hover:gap-2 transition-all"
                         >
-                          {t("nav.products")} <ArrowRight className="h-3.5 w-3.5" />
+                          {t("nav.products")} <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.6} />
                         </Link>
                         <div className="gold-line w-32" />
                       </div>
@@ -124,7 +125,7 @@ export function Header() {
               <Link
                 key={item.key}
                 to={item.to}
-                className="px-3 py-2 text-sm font-medium text-foreground/85 hover:text-foreground transition-colors relative after:absolute after:left-3 after:right-3 after:bottom-1 after:h-px after:bg-champagne after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left"
+                className="px-3 py-2 type-small font-medium text-foreground/85 hover:text-foreground transition-colors relative after:absolute after:left-3 after:right-3 after:bottom-1 after:h-px after:bg-champagne after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left"
                 activeProps={{ className: "text-foreground after:scale-x-100" }}
               >
                 {item.label}
@@ -137,21 +138,21 @@ export function Header() {
           <div className="relative">
             <button
               onClick={() => setLangOpen((v) => !v)}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 text-xs font-semibold uppercase tracking-wider text-foreground/70 hover:text-foreground border border-transparent hover:border-border rounded transition-colors"
+              className="flex items-center gap-1.5 px-2.5 py-1.5 type-label text-foreground/70 hover:text-foreground border border-transparent hover:border-border rounded-sm transition-colors"
               aria-label={t("nav.language")}
               aria-expanded={langOpen}
             >
               {lang}
-              <ChevronDown className={cn("h-3 w-3 transition-transform", langOpen && "rotate-180")} />
+              <ChevronDown className={cn("h-3 w-3 transition-transform", langOpen && "rotate-180")} strokeWidth={1.6} />
             </button>
             {langOpen && (
-              <div className="absolute right-0 top-full mt-1 min-w-[140px] rounded-md border border-border bg-card shadow-[var(--shadow-soft)] py-1 animate-fade-up">
+              <div className="absolute right-0 top-full mt-1 min-w-[140px] rounded-sm border border-border bg-card shadow-[var(--shadow-soft)] py-1 animate-fade-up">
                 {LANGS.map((l) => (
                   <button
                     key={l}
                     onClick={() => { changeLang(l); setLangOpen(false); }}
                     className={cn(
-                      "block w-full text-left px-3 py-2 text-sm hover:bg-muted transition-colors",
+                      "block w-full text-left px-3 py-2 type-small hover:bg-muted transition-colors",
                       l === lang && "text-primary font-medium",
                     )}
                   >
@@ -162,14 +163,12 @@ export function Header() {
               </div>
             )}
           </div>
-          <Link
-            to="/$lang/contact"
-            params={{ lang }}
-            className="inline-flex items-center gap-1.5 rounded-sm bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground shadow-[var(--shadow-soft)] hover:bg-primary/90 hover:shadow-[var(--shadow-elevated)] transition-all"
-          >
-            {t("nav.request")}
-            <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
+          <Button asChild variant="primary" size="sm">
+            <Link to="/$lang/contact" params={{ lang }}>
+              {t("nav.request")}
+              <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.6} />
+            </Link>
+          </Button>
         </div>
 
         <button
@@ -177,7 +176,7 @@ export function Header() {
           onClick={() => setMobileOpen(true)}
           aria-label={t("nav.menu")}
         >
-          <Menu className="h-5 w-5" />
+          <Menu className="h-5 w-5" strokeWidth={1.6} />
         </button>
       </div>
 
@@ -189,11 +188,11 @@ export function Header() {
             <div className="flex items-center justify-between px-5 h-16 border-b border-border">
               <Wordmark size="sm" showTagline={false} />
               <button aria-label={t("nav.close")} onClick={() => setMobileOpen(false)} className="p-2 -mr-2">
-                <X className="h-5 w-5" />
+                <X className="h-5 w-5" strokeWidth={1.6} />
               </button>
             </div>
             <div className="flex-1 overflow-y-auto px-5 py-6">
-              <p className="text-eyebrow mb-3">{t("nav.products")}</p>
+              <p className="type-label text-muted-foreground mb-3">{t("nav.products")}</p>
               <div className="space-y-1 mb-6">
                 {categories.map((c) => (
                   <Link
@@ -203,15 +202,15 @@ export function Header() {
                     className="flex items-center gap-2.5 py-2 text-foreground/90"
                   >
                     <span className={cn("h-2 w-2 rounded-full", accentDot[c.accent])} />
-                    <span className="font-serif">{categoryName(lang, c)}</span>
+                    <span className="type-h4">{categoryName(lang, c)}</span>
                   </Link>
                 ))}
                 <Link
                   to="/$lang/products"
                   params={{ lang }}
-                  className="flex items-center gap-1 py-2 text-sm text-primary"
+                  className="flex items-center gap-1 py-2 type-small text-primary"
                 >
-                  {t("nav.products")} <ArrowRight className="h-3.5 w-3.5" />
+                  {t("nav.products")} <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.6} />
                 </Link>
               </div>
               <div className="h-px bg-border mb-6" />
@@ -229,14 +228,14 @@ export function Header() {
             </div>
             <div className="border-t border-border p-5 space-y-4">
               <div>
-                <p className="text-eyebrow mb-2">{t("nav.language")}</p>
+                <p className="type-label text-muted-foreground mb-2">{t("nav.language")}</p>
                 <div className="flex gap-2">
                   {LANGS.map((l) => (
                     <button
                       key={l}
                       onClick={() => changeLang(l)}
                       className={cn(
-                        "flex-1 rounded-sm border px-3 py-2 text-xs font-semibold uppercase tracking-wider transition-colors",
+                        "flex-1 rounded-sm border px-3 py-2 type-label transition-colors",
                         l === lang
                           ? "border-primary bg-primary text-primary-foreground"
                           : "border-border text-foreground/70 hover:border-foreground",
@@ -247,13 +246,11 @@ export function Header() {
                   ))}
                 </div>
               </div>
-              <Link
-                to="/$lang/contact"
-                params={{ lang }}
-                className="flex items-center justify-center gap-1.5 rounded-sm bg-primary px-4 py-3 text-sm font-medium text-primary-foreground w-full"
-              >
-                {t("nav.request")} <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
+              <Button asChild variant="primary" className="w-full">
+                <Link to="/$lang/contact" params={{ lang }}>
+                  {t("nav.request")} <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.6} />
+                </Link>
+              </Button>
             </div>
           </div>
         </div>
