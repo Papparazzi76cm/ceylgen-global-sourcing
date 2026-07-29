@@ -3,9 +3,6 @@ import type {} from "@tanstack/react-start";
 import { products } from "@/data/products";
 import { categories } from "@/data/categories";
 
-// TODO: replace with your project URL once a project name or custom domain is set.
-const BASE_URL = "";
-
 const LANGS = ["es", "en", "fr"] as const;
 const STATIC_PATHS = [
   "",
@@ -24,50 +21,81 @@ interface SitemapEntry {
   priority?: string;
 }
 
+function escapeXml(value: string) {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&apos;");
+}
+
 export const Route = createFileRoute("/sitemap.xml")({
   server: {
     handlers: {
-      GET: async () => {
+      GET: async ({ request }) => {
+        const origin = new URL(request.url).origin;
         const entries: SitemapEntry[] = [];
+
         for (const lang of LANGS) {
-          for (const p of STATIC_PATHS) {
+          for (const path of STATIC_PATHS) {
             entries.push({
-              path: `/${lang}${p}`,
-              changefreq: "monthly",
-              priority: p === "" ? "1.0" : "0.7",
+              path: `/${lang}${path}`,
+              changefreq: path === "" ? "weekly" : "monthly",
+              priority: path === "" ? "1.0" : "0.7",
             });
           }
-          for (const c of categories) {
-            entries.push({ path: `/${lang}/categories/${c.slug}`, changefreq: "monthly", priority: "0.6" });
+
+          for (const category of categories) {
+            entries.push({
+              path: `/${lang}/categories/${category.slug}`,
+              changefreq: "monthly",
+              priority: "0.6",
+            });
           }
-          for (const pr of products) {
-            entries.push({ path: `/${lang}/products/${pr.slug}`, changefreq: "monthly", priority: "0.8" });
+
+          for (const product of products) {
+            entries.push({
+              path: `/${lang}/products/${product.slug}`,
+              changefreq: "monthly",
+              priority: "0.8",
+            });
           }
         }
 
-        const urls = entries.map((e) =>
-          [
-            `  <url>`,
-            `    <loc>${BASE_URL}${e.path}</loc>`,
-            e.changefreq ? `    <changefreq>${e.changefreq}</changefreq>` : null,
-            e.priority ? `    <priority>${e.priority}</priority>` : null,
-            `  </url>`,
+        const urls = entries.map((entry) => {
+          const localizedPath = entry.path.replace(/^\/(es|en|fr)/, "");
+          const alternates = LANGS.map(
+            (lang) =>
+              `    <xhtml:link rel="alternate" hreflang="${lang}" href="${escapeXml(`${origin}/${lang}${localizedPath}`)}" />`,
+          );
+
+          return [
+            "  <url>",
+            `    <loc>${escapeXml(`${origin}${entry.path}`)}</loc>`,
+            ...alternates,
+            `    <xhtml:link rel="alternate" hreflang="x-default" href="${escapeXml(`${origin}/es${localizedPath}`)}" />`,
+            entry.changefreq
+              ? `    <changefreq>${entry.changefreq}</changefreq>`
+              : null,
+            entry.priority ? `    <priority>${entry.priority}</priority>` : null,
+            "  </url>",
           ]
             .filter(Boolean)
-            .join("\n"),
-        );
+            .join("\n");
+        });
 
         const xml = [
-          `<?xml version="1.0" encoding="UTF-8"?>`,
-          `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`,
+          '<?xml version="1.0" encoding="UTF-8"?>',
+          '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
           ...urls,
-          `</urlset>`,
+          "</urlset>",
         ].join("\n");
 
         return new Response(xml, {
           headers: {
-            "Content-Type": "application/xml",
-            "Cache-Control": "public, max-age=3600",
+            "Content-Type": "application/xml; charset=utf-8",
+            "Cache-Control": "public, max-age=3600, s-maxage=3600",
           },
         });
       },
