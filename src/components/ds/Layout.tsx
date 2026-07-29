@@ -24,7 +24,7 @@ export function Section({
   ...props
 }: React.HTMLAttributes<HTMLElement> & {
   tone?: "default" | "muted" | "dark";
-  size?: "sm" | "md";
+  size?: "sm" | "md" | "lg";
   bordered?: boolean;
 }) {
   return (
@@ -37,7 +37,7 @@ export function Section({
       )}
       {...props}
     >
-      <Container className={size === "sm" ? "section-y-sm" : "section-y"}>{children}</Container>
+      <Container className={size === "sm" ? "section-y-sm" : size === "lg" ? "section-y-lg" : "section-y"}>{children}</Container>
     </section>
   );
 }
