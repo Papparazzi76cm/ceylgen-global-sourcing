@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/i18n/context";
-import { Eyebrow, GoldRule, Reveal } from "@/components/site/Reveal";
+import { Reveal } from "@/components/site/Reveal";
+import { PageHeader, Section, SectionHeader, Grid, Card, CardBody, CardTitle, Alert, Button, GoldRule } from "@/components/ds";
 import { ArrowRight, Info } from "lucide-react";
 
 export const Route = createFileRoute("/$lang/quality")({
@@ -13,36 +14,39 @@ export const Route = createFileRoute("/$lang/quality")({
     const items = ["spec","methods","sheets","trace","suppliers","control"];
     return (
       <>
-        <section className="container-page pt-16 md:pt-24 pb-10">
-          <Eyebrow>{t("quality.eyebrow")}</Eyebrow>
-          <h1 className="mt-4 font-serif text-4xl md:text-6xl max-w-3xl">{t("quality.page.title")}</h1>
-          <p className="mt-5 max-w-2xl text-muted-foreground">{t("quality.page.subtitle")}</p>
-        </section>
-        <section className="container-page pb-8">
-          <h2 className="font-serif text-2xl md:text-3xl">{t("quality.page.principles")}</h2>
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {items.map((k, i) => (
-              <Reveal key={k} delay={i * 40}>
-                <div className="rounded-lg border border-border bg-card p-5">
-                  <div className="h-1 w-8 bg-champagne mb-3" />
-                  <h3 className="font-serif text-lg">{t(`quality.${k}`)}</h3>
-                </div>
-              </Reveal>
-            ))}
+        <PageHeader eyebrow={t("quality.eyebrow")} title={t("quality.page.title")} lead={t("quality.page.subtitle")} />
+        <Section size="sm">
+          <SectionHeader title={t("quality.page.principles")} />
+          <div className="mt-8">
+            <Grid cols={3}>
+              {items.map((k, i) => (
+                <Reveal key={k} delay={i * 40}>
+                  <Card className="h-full">
+                    <CardBody>
+                      <div className="h-1 w-8 bg-champagne mb-3" />
+                      <CardTitle>{t(`quality.${k}`)}</CardTitle>
+                    </CardBody>
+                  </Card>
+                </Reveal>
+              ))}
+            </Grid>
           </div>
-        </section>
-        <section className="container-page py-10">
-          <div className="rounded-lg border border-champagne/40 bg-champagne/5 p-5 flex items-start gap-3">
-            <Info className="h-4 w-4 text-champagne mt-0.5" />
-            <p className="text-sm text-foreground/85">{t("quality.page.note")}</p>
-          </div>
-        </section>
-        <section className="container-page pb-16">
+        </Section>
+        <Section size="sm">
+          <Alert tone="info" icon={<Info />}>
+            {t("quality.page.note")}
+          </Alert>
+        </Section>
+        <Section>
           <GoldRule className="max-w-xs mb-6" />
           <div className="flex flex-wrap gap-3">
-            <Link to="/$lang/contact" params={{ lang }} className="inline-flex items-center gap-1.5 rounded-sm bg-primary px-5 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90">{t("cta.sheet")} <ArrowRight className="h-4 w-4" /></Link>
+            <Button variant="primary" asChild>
+              <Link to="/$lang/contact" params={{ lang }}>
+                {t("cta.sheet")} <ArrowRight />
+              </Link>
+            </Button>
           </div>
-        </section>
+        </Section>
       </>
     );
   },

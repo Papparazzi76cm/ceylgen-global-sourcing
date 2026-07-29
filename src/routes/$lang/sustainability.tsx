@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useI18n } from "@/i18n/context";
-import { Eyebrow, Reveal } from "@/components/site/Reveal";
+import { Reveal } from "@/components/site/Reveal";
+import { PageHeader, Section, Grid, Card, CardBody, CardTitle } from "@/components/ds";
 
 export const Route = createFileRoute("/$lang/sustainability")({
   head: ({ params }) => {
@@ -12,20 +13,20 @@ export const Route = createFileRoute("/$lang/sustainability")({
     const items = ["natural","selection","relations","logistics","transparency","improve"];
     return (
       <>
-        <section className="container-page pt-16 md:pt-24 pb-10">
-          <Eyebrow>{t("sust.eyebrow")}</Eyebrow>
-          <h1 className="mt-4 font-serif text-4xl md:text-6xl max-w-3xl">{t("sust.page.title")}</h1>
-          <p className="mt-5 max-w-2xl text-muted-foreground">{t("sust.page.subtitle")}</p>
-        </section>
-        <section className="container-page pb-20 grid grid-cols-1 md:grid-cols-2 gap-4">
-          {items.map((k, i) => (
-            <Reveal key={k} delay={i * 40}>
-              <div className="rounded-lg border border-border bg-card p-6 border-l-4 border-l-forest">
-                <h3 className="font-serif text-lg">{t(`sust.${k}`)}</h3>
-              </div>
-            </Reveal>
-          ))}
-        </section>
+        <PageHeader eyebrow={t("sust.eyebrow")} title={t("sust.page.title")} lead={t("sust.page.subtitle")} />
+        <Section>
+          <Grid cols={2}>
+            {items.map((k, i) => (
+              <Reveal key={k} delay={i * 40}>
+                <Card className="border-l-4 border-l-forest h-full">
+                  <CardBody>
+                    <CardTitle>{t(`sust.${k}`)}</CardTitle>
+                  </CardBody>
+                </Card>
+              </Reveal>
+            ))}
+          </Grid>
+        </Section>
       </>
     );
   },

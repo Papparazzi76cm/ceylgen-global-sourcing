@@ -1,6 +1,7 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import { createFileRoute } from "@tanstack/react-router";
 import { useI18n } from "@/i18n/context";
-import { Eyebrow, Reveal } from "@/components/site/Reveal";
+import { Reveal } from "@/components/site/Reveal";
+import { PageHeader, Section, Grid, FeatureCard, TextLink } from "@/components/ds";
 import { Droplet, Wind, Filter, Utensils, Sprout, Anchor, Sailboat, Globe2, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/$lang/industries")({
@@ -16,25 +17,27 @@ export const Route = createFileRoute("/$lang/industries")({
     ];
     return (
       <>
-        <section className="container-page pt-16 md:pt-24 pb-8">
-          <Eyebrow>{t("industries.eyebrow")}</Eyebrow>
-          <h1 className="mt-4 font-serif text-4xl md:text-6xl max-w-3xl">{t("industries.page.title")}</h1>
-          <p className="mt-5 max-w-2xl text-muted-foreground">{t("industries.page.subtitle")}</p>
-        </section>
-        <section className="container-page pb-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {blocks.map(({ i: Icon, k }, idx) => (
-            <Reveal key={k} delay={idx * 40}>
-              <article className="group h-full rounded-lg border border-border bg-card p-6 hover:border-champagne hover:shadow-[var(--shadow-soft)] transition-all">
-                <div className="h-11 w-11 rounded-sm border border-champagne/50 flex items-center justify-center text-champagne"><Icon className="h-5 w-5" strokeWidth={1.6} /></div>
-                <h3 className="mt-5 font-serif text-xl">{t(`industries.${k}`)}</h3>
-                <p className="mt-2 text-sm text-muted-foreground">{t("common.available_on_request")}</p>
-                <Link to="/$lang/products" params={{ lang }} className="mt-4 inline-flex items-center gap-1 text-sm text-primary hover:gap-2 transition-all">
-                  {t("industries.page.related")} <ArrowRight className="h-3.5 w-3.5" />
-                </Link>
-              </article>
-            </Reveal>
-          ))}
-        </section>
+        <PageHeader eyebrow={t("industries.eyebrow")} title={t("industries.page.title")} lead={t("industries.page.subtitle")} />
+        <Section>
+          <Grid cols={3}>
+            {blocks.map(({ i: Icon, k }, idx) => (
+              <Reveal key={k} delay={idx * 40}>
+                <FeatureCard
+                  icon={<Icon />}
+                  title={t(`industries.${k}`)}
+                  description={t("common.available_on_request")}
+                  footer={
+                    <TextLink asChild>
+                      <a href={`/${lang}/products`}>
+                        {t("industries.page.related")} <ArrowRight />
+                      </a>
+                    </TextLink>
+                  }
+                />
+              </Reveal>
+            ))}
+          </Grid>
+        </Section>
       </>
     );
   },
