@@ -30,20 +30,7 @@ function AdminLayout() {
   }
 
   if (!isStaff) {
-    return (
-      <main className="min-h-screen flex items-center justify-center bg-background px-4">
-        <div className="max-w-md text-center rounded-lg border border-border bg-card p-8">
-          <p className="text-eyebrow">CEYLGEN</p>
-          <h1 className="mt-3 font-serif text-2xl">Acceso restringido</h1>
-          <p className="mt-2 text-sm text-muted-foreground">
-            Tu cuenta ({user?.email}) no tiene permisos de staff. Solicita a un administrador que te asigne un rol.
-          </p>
-          <button onClick={signOut} className="mt-6 inline-flex items-center gap-2 rounded-sm bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90">
-            <LogOut className="h-4 w-4" /> Cerrar sesión
-          </button>
-        </div>
-      </main>
-    );
+    return <RestrictedScreen email={user?.email} onSignOut={signOut} />;
   }
 
   return (
