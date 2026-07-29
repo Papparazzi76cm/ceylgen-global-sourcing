@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Package, Inbox, FileText, Users } from "lucide-react";
+import { Eyebrow, Grid, StatCard } from "@/components/ds";
 
 export const Route = createFileRoute("/_authenticated/admin/")({
   head: () => ({ meta: [{ title: "Dashboard — CEYLGEN Admin" }, { name: "robots", content: "noindex" }] }),
@@ -37,21 +38,15 @@ function Dashboard() {
 
   return (
     <div>
-      <p className="text-eyebrow">Panel</p>
-      <h1 className="mt-2 font-serif text-4xl">Dashboard</h1>
-      <p className="mt-2 text-sm text-muted-foreground">Resumen del contenido y contactos.</p>
+      <Eyebrow>Panel</Eyebrow>
+      <h1 className="mt-2 type-h1">Dashboard</h1>
+      <p className="mt-2 type-small text-muted-foreground">Resumen del contenido y contactos.</p>
 
-      <div className="mt-8 grid grid-cols-2 lg:grid-cols-4 gap-4">
+      <Grid cols={4} className="mt-8">
         {cards.map((c) => (
-          <div key={c.label} className="rounded-lg border border-border bg-card p-5">
-            <div className="flex items-center justify-between">
-              <span className="text-xs uppercase tracking-wider text-muted-foreground">{c.label}</span>
-              <c.icon className="h-4 w-4 text-champagne" />
-            </div>
-            <div className="mt-3 font-serif text-3xl">{c.value}</div>
-          </div>
+          <StatCard key={c.label} label={c.label} value={c.value} icon={<c.icon />} />
         ))}
-      </div>
+      </Grid>
     </div>
   );
 }

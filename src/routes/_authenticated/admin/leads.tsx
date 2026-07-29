@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { toast } from "sonner";
+import { Eyebrow, Card, Badge, Select, LoadingRow, EmptyState } from "@/components/ds";
 
 type Lead = {
   id: string; name: string; email: string; company: string | null;
@@ -42,16 +43,16 @@ function LeadsInbox() {
 
   return (
     <div>
-      <p className="text-eyebrow">Contactos</p>
-      <h1 className="mt-2 font-serif text-4xl">Leads</h1>
-      <p className="mt-2 text-sm text-muted-foreground">Buzón de solicitudes desde el formulario público.</p>
+      <Eyebrow>Contactos</Eyebrow>
+      <h1 className="mt-2 type-h1">Leads</h1>
+      <p className="mt-2 type-small text-muted-foreground">Buzón de solicitudes desde el formulario público.</p>
 
       <div className="mt-8 grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-6">
-        <div className="rounded-lg border border-border bg-card overflow-hidden">
+        <Card className="overflow-hidden">
           {loading ? (
-            <div className="p-6 text-center text-sm text-muted-foreground">Cargando…</div>
+            <LoadingRow label="Cargando…" />
           ) : rows.length === 0 ? (
-            <div className="p-6 text-center text-sm text-muted-foreground">Sin leads todavía.</div>
+            <EmptyState title="Sin leads" description="Todavía no hay leads registrados." />
           ) : (
             <ul className="divide-y divide-border max-h-[70vh] overflow-y-auto">
               {rows.map((r) => (
@@ -61,51 +62,49 @@ function LeadsInbox() {
                     className={`w-full text-left px-4 py-3 hover:bg-accent/40 ${selected?.id === r.id ? "bg-accent/60" : ""}`}
                   >
                     <div className="flex items-center justify-between">
-                      <span className="font-medium text-sm truncate">{r.name}</span>
-                      <span className={`text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-sm ${r.status === "new" ? "bg-champagne/20 text-champagne" : "bg-muted text-muted-foreground"}`}>
-                        {r.status}
-                      </span>
+                      <span className="font-medium type-small truncate">{r.name}</span>
+                      <Badge tone={r.status === "new" ? "gold" : "neutral"}>{r.status}</Badge>
                     </div>
-                    <div className="text-xs text-muted-foreground truncate">{r.email} · {r.company ?? "—"}</div>
-                    <div className="text-xs text-muted-foreground mt-1">{new Date(r.created_at).toLocaleString()}</div>
+                    <div className="type-small text-muted-foreground truncate">{r.email} · {r.company ?? "—"}</div>
+                    <div className="type-small text-muted-foreground mt-1">{new Date(r.created_at).toLocaleString()}</div>
                   </button>
                 </li>
               ))}
             </ul>
           )}
-        </div>
+        </Card>
 
-        <div className="rounded-lg border border-border bg-card p-6">
+        <Card className="p-6">
           {!selected ? (
-            <div className="text-sm text-muted-foreground">Selecciona un lead para ver los detalles.</div>
+            <div className="type-small text-muted-foreground">Selecciona un lead para ver los detalles.</div>
           ) : (
             <div>
               <div className="flex items-start justify-between gap-4">
                 <div>
-                  <h2 className="font-serif text-2xl">{selected.name}</h2>
-                  <a href={`mailto:${selected.email}`} className="text-sm text-primary hover:underline">{selected.email}</a>
+                  <h2 className="type-h2">{selected.name}</h2>
+                  <a href={`mailto:${selected.email}`} className="type-small text-primary hover:underline">{selected.email}</a>
                 </div>
-                <select
+                <Select
                   value={selected.status}
                   onChange={(e) => updateStatus(selected.id, e.target.value)}
-                  className="rounded-sm border border-input bg-background px-2 py-1 text-xs"
+                  className="h-9 w-auto"
                 >
                   {STATUSES.map((s) => <option key={s} value={s}>{s}</option>)}
-                </select>
+                </Select>
               </div>
-              <dl className="mt-6 grid grid-cols-2 gap-4 text-sm">
+              <dl className="mt-6 grid grid-cols-2 gap-4 type-small">
                 <Field label="Empresa" value={selected.company} />
                 <Field label="País" value={selected.country} />
                 <Field label="Interés" value={selected.interest} />
                 <Field label="Idioma" value={selected.lang} />
               </dl>
               <div className="mt-6">
-                <div className="text-xs uppercase tracking-wider text-muted-foreground">Mensaje</div>
-                <p className="mt-2 whitespace-pre-wrap text-sm">{selected.message}</p>
+                <div className="type-label text-muted-foreground">Mensaje</div>
+                <p className="mt-2 whitespace-pre-wrap type-small">{selected.message}</p>
               </div>
             </div>
           )}
-        </div>
+        </Card>
       </div>
     </div>
   );
@@ -114,7 +113,7 @@ function LeadsInbox() {
 function Field({ label, value }: { label: string; value: string | null }) {
   return (
     <div>
-      <dt className="text-xs uppercase tracking-wider text-muted-foreground">{label}</dt>
+      <dt className="type-label text-muted-foreground">{label}</dt>
       <dd className="mt-1">{value ?? "—"}</dd>
     </div>
   );
