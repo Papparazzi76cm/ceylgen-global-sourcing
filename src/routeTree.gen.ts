@@ -10,6 +10,8 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as LangRouteRouteImport } from './routes/$lang/route'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as LangIndexRouteImport } from './routes/$lang/index'
@@ -19,7 +21,10 @@ import { Route as LangQualityRouteImport } from './routes/$lang/quality'
 import { Route as LangIndustriesRouteImport } from './routes/$lang/industries'
 import { Route as LangContactRouteImport } from './routes/$lang/contact'
 import { Route as LangAboutRouteImport } from './routes/$lang/about'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin/index'
 import { Route as LangProductsIndexRouteImport } from './routes/$lang/products/index'
+import { Route as AuthenticatedAdminProductsRouteImport } from './routes/_authenticated/admin/products'
+import { Route as AuthenticatedAdminLeadsRouteImport } from './routes/_authenticated/admin/leads'
 import { Route as LangProductsSlugRouteImport } from './routes/$lang/products/$slug'
 import { Route as LangLegalPrivacyRouteImport } from './routes/$lang/legal/privacy'
 import { Route as LangLegalNoticeRouteImport } from './routes/$lang/legal/notice'
@@ -29,6 +34,15 @@ import { Route as LangCategoriesCategoryRouteImport } from './routes/$lang/categ
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LangRouteRoute = LangRouteRouteImport.update({
@@ -76,10 +90,26 @@ const LangAboutRoute = LangAboutRouteImport.update({
   path: '/about',
   getParentRoute: () => LangRouteRoute,
 } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => AuthenticatedRouteRoute,
+} as any)
 const LangProductsIndexRoute = LangProductsIndexRouteImport.update({
   id: '/products/',
   path: '/products/',
   getParentRoute: () => LangRouteRoute,
+} as any)
+const AuthenticatedAdminProductsRoute =
+  AuthenticatedAdminProductsRouteImport.update({
+    id: '/admin/products',
+    path: '/admin/products',
+    getParentRoute: () => AuthenticatedRouteRoute,
+  } as any)
+const AuthenticatedAdminLeadsRoute = AuthenticatedAdminLeadsRouteImport.update({
+  id: '/admin/leads',
+  path: '/admin/leads',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const LangProductsSlugRoute = LangProductsSlugRouteImport.update({
   id: '/products/$slug',
@@ -110,6 +140,7 @@ const LangCategoriesCategoryRoute = LangCategoriesCategoryRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$lang': typeof LangRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$lang/about': typeof LangAboutRoute
   '/$lang/contact': typeof LangContactRoute
@@ -123,10 +154,14 @@ export interface FileRoutesByFullPath {
   '/$lang/legal/notice': typeof LangLegalNoticeRoute
   '/$lang/legal/privacy': typeof LangLegalPrivacyRoute
   '/$lang/products/$slug': typeof LangProductsSlugRoute
+  '/admin/leads': typeof AuthenticatedAdminLeadsRoute
+  '/admin/products': typeof AuthenticatedAdminProductsRoute
   '/$lang/products/': typeof LangProductsIndexRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$lang/about': typeof LangAboutRoute
   '/$lang/contact': typeof LangContactRoute
@@ -140,12 +175,17 @@ export interface FileRoutesByTo {
   '/$lang/legal/notice': typeof LangLegalNoticeRoute
   '/$lang/legal/privacy': typeof LangLegalPrivacyRoute
   '/$lang/products/$slug': typeof LangProductsSlugRoute
+  '/admin/leads': typeof AuthenticatedAdminLeadsRoute
+  '/admin/products': typeof AuthenticatedAdminProductsRoute
   '/$lang/products': typeof LangProductsIndexRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/$lang': typeof LangRouteRouteWithChildren
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/auth': typeof AuthRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/$lang/about': typeof LangAboutRoute
   '/$lang/contact': typeof LangContactRoute
@@ -159,13 +199,17 @@ export interface FileRoutesById {
   '/$lang/legal/notice': typeof LangLegalNoticeRoute
   '/$lang/legal/privacy': typeof LangLegalPrivacyRoute
   '/$lang/products/$slug': typeof LangProductsSlugRoute
+  '/_authenticated/admin/leads': typeof AuthenticatedAdminLeadsRoute
+  '/_authenticated/admin/products': typeof AuthenticatedAdminProductsRoute
   '/$lang/products/': typeof LangProductsIndexRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
     | '/$lang'
+    | '/auth'
     | '/sitemap.xml'
     | '/$lang/about'
     | '/$lang/contact'
@@ -179,10 +223,14 @@ export interface FileRouteTypes {
     | '/$lang/legal/notice'
     | '/$lang/legal/privacy'
     | '/$lang/products/$slug'
+    | '/admin/leads'
+    | '/admin/products'
     | '/$lang/products/'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/auth'
     | '/sitemap.xml'
     | '/$lang/about'
     | '/$lang/contact'
@@ -196,11 +244,16 @@ export interface FileRouteTypes {
     | '/$lang/legal/notice'
     | '/$lang/legal/privacy'
     | '/$lang/products/$slug'
+    | '/admin/leads'
+    | '/admin/products'
     | '/$lang/products'
+    | '/admin'
   id:
     | '__root__'
     | '/'
     | '/$lang'
+    | '/_authenticated'
+    | '/auth'
     | '/sitemap.xml'
     | '/$lang/about'
     | '/$lang/contact'
@@ -214,12 +267,17 @@ export interface FileRouteTypes {
     | '/$lang/legal/notice'
     | '/$lang/legal/privacy'
     | '/$lang/products/$slug'
+    | '/_authenticated/admin/leads'
+    | '/_authenticated/admin/products'
     | '/$lang/products/'
+    | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LangRouteRoute: typeof LangRouteRouteWithChildren
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AuthRoute: typeof AuthRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
 
@@ -230,6 +288,20 @@ declare module '@tanstack/react-router' {
       path: '/sitemap.xml'
       fullPath: '/sitemap.xml'
       preLoaderRoute: typeof SitemapDotxmlRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/$lang': {
@@ -295,12 +367,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LangAboutRouteImport
       parentRoute: typeof LangRouteRoute
     }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
     '/$lang/products/': {
       id: '/$lang/products/'
       path: '/products'
       fullPath: '/$lang/products/'
       preLoaderRoute: typeof LangProductsIndexRouteImport
       parentRoute: typeof LangRouteRoute
+    }
+    '/_authenticated/admin/products': {
+      id: '/_authenticated/admin/products'
+      path: '/admin/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AuthenticatedAdminProductsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/admin/leads': {
+      id: '/_authenticated/admin/leads'
+      path: '/admin/leads'
+      fullPath: '/admin/leads'
+      preLoaderRoute: typeof AuthenticatedAdminLeadsRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/$lang/products/$slug': {
       id: '/$lang/products/$slug'
@@ -376,9 +469,26 @@ const LangRouteRouteWithChildren = LangRouteRoute._addFileChildren(
   LangRouteRouteChildren,
 )
 
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminLeadsRoute: typeof AuthenticatedAdminLeadsRoute
+  AuthenticatedAdminProductsRoute: typeof AuthenticatedAdminProductsRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminLeadsRoute: AuthenticatedAdminLeadsRoute,
+  AuthenticatedAdminProductsRoute: AuthenticatedAdminProductsRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LangRouteRoute: LangRouteRouteWithChildren,
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AuthRoute: AuthRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }
 export const routeTree = rootRouteImport
