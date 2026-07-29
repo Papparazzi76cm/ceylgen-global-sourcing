@@ -25,7 +25,7 @@ export async function submitLead(input: LeadInput): Promise<{ ok: boolean; error
       interest: input.interest ?? null,
       lang: input.lang ?? null,
       source: input.source ?? "contact-form",
-      meta: input.meta ?? {},
+      meta: (input.meta ?? {}) as never,
     });
     if (error) return { ok: false, error: error.message };
     return { ok: true };
