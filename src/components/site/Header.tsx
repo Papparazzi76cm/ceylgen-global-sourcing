@@ -75,7 +75,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-4 xl:gap-7">
+        <nav className="hidden lg:flex items-center gap-4 2xl:gap-6">
           {nav.map((item) =>
             item.mega ? (
               <div
@@ -138,7 +138,7 @@ export function Header() {
               </div>
             )}
           </div>
-          <div className="hidden md:block lg:hidden xl:block">
+          <div className="hidden md:block lg:hidden 2xl:block">
             <Button asChild variant="secondary" size="sm">
               <Link to="/$lang/contact" params={{ lang }}>
                 {t("nav.request")}
