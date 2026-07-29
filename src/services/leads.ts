@@ -15,21 +15,27 @@ export interface LeadInput {
 
 export async function submitLead(input: LeadInput): Promise<{ ok: boolean; error?: string }> {
   try {
-    const { error } = await supabase.from("leads").insert({
-      name: input.name,
-      email: input.email,
-      message: input.message,
-      company: input.company ?? null,
-      phone: input.phone ?? null,
-      country: input.country ?? null,
-      interest: input.interest ?? null,
-      lang: input.lang ?? null,
-      source: input.source ?? "contact-form",
-      meta: (input.meta ?? {}) as never,
-    });
-    if (error) return { ok: false, error: error.message };
+    const { error } = await supabase.rpc("submit_public_lead", {
+      p_name: input.name,
+      p_email: input.email,
+      p_message: input.message,
+      p_company: input.company ?? null,
+      p_phone: input.phone ?? null,
+      p_country: input.country ?? null,
+      p_interest: input.interest ?? null,
+      p_lang: input.lang ?? null,
+      p_source: input.source ?? "contact-form",
+      p_meta: input.meta ?? {},
+    } as never);
+
+    if (error) {
+      console.error("Lead submission failed", error);
+      return { ok: false, error: "submission_failed" };
+    }
+
     return { ok: true };
-  } catch (e) {
-    return { ok: false, error: e instanceof Error ? e.message : "unknown" };
+  } catch (error) {
+    console.error("Lead submission failed", error);
+    return { ok: false, error: "submission_failed" };
   }
 }
