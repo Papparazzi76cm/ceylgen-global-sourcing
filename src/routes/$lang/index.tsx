@@ -117,7 +117,7 @@ function HomePage() {
       </section>
 
       {/* ── VALUE ────────────────────────────────────────────── */}
-      <Section>
+      <Section size="lg">
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-16">
           <Reveal variant="left" className="lg:col-span-4">
             <Eyebrow>{t("value.eyebrow")}</Eyebrow>
@@ -247,7 +247,7 @@ function HomePage() {
       )}
 
       {/* ── SOURCING / GLOBAL PRESENCE ───────────────────────── */}
-      <Section>
+      <Section size="lg">
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-12 lg:gap-20">
           <Reveal variant="left" className="lg:col-span-5">
             <Eyebrow>{t("sourcing.eyebrow")}</Eyebrow>
@@ -334,7 +334,7 @@ function HomePage() {
       </section>
 
       {/* ── SUSTAINABILITY ───────────────────────────────────── */}
-      <Section>
+      <Section size="lg">
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-16">
           <Reveal variant="left" className="lg:col-span-4">
             <Eyebrow>{t("sust.eyebrow")}</Eyebrow>
