@@ -4,6 +4,7 @@ import { getProduct, products } from "@/data/products";
 import { categories, categoryName, accentClasses, getCategory } from "@/data/categories";
 import { Eyebrow, GoldRule, Reveal } from "@/components/site/Reveal";
 import { ArrowRight, ChevronRight, FileText, Home } from "lucide-react";
+import { TdsDownload } from "@/components/site/TdsDownload";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/$lang/products/$slug")({
@@ -71,6 +72,7 @@ function ProductPage() {
           <h1 className="mt-3 font-serif text-3xl md:text-5xl leading-tight">{info.name}</h1>
           <p className="mt-5 text-muted-foreground leading-relaxed">{info.shortDescription}</p>
           <div className="mt-7 flex flex-wrap gap-3">
+            {p.hasTechnicalSheet && <TdsDownload productCode={p.code} />}
             <Link to="/$lang/contact" params={{ lang }} search={{ request: "sheet", product: p.slug } as never}
               className="inline-flex items-center gap-1.5 rounded-sm bg-primary px-5 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors">
               <FileText className="h-4 w-4" /> {t("product.request.sheet")}
