@@ -8,13 +8,6 @@ import { cn } from "@/lib/utils";
 import { Wordmark } from "./BrandMark";
 import { Button } from "@/components/ds";
 
-const accentDot: Record<string, string> = {
-  ocean: "bg-ocean",
-  copper: "bg-copper",
-  forest: "bg-forest",
-  teak: "bg-teak",
-};
-
 export function Header() {
   const { t, lang } = useI18n();
   const navigate = useNavigate();
@@ -25,7 +18,7 @@ export function Header() {
   const [langOpen, setLangOpen] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
+    const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -56,77 +49,59 @@ export function Header() {
   return (
     <header
       className={cn(
-        "sticky top-0 z-50 w-full border-b transition-all duration-300",
-        scrolled
-          ? "border-border/60 bg-background/85 backdrop-blur-md shadow-[0_1px_0_0_var(--border)]"
-          : "border-transparent bg-background/60 backdrop-blur",
+        "sticky top-0 z-50 w-full bg-background/92 backdrop-blur-[6px]",
+        "transition-[box-shadow,background-color] duration-[520ms] ease-[var(--ease-brand)]",
+        scrolled ? "shadow-[0_1px_0_0_var(--border),0_10px_30px_-24px_oklch(0.2_0.02_236/0.35)]" : "shadow-none",
       )}
     >
-      <div className="container-page flex h-16 md:h-20 items-center justify-between gap-4">
-        <Link to="/$lang" params={{ lang }} className="group" aria-label="CEYLGEN Premium Natural Resources">
-          <Wordmark size="md" showTagline={true} />
+      <div
+        className={cn(
+          "container-page flex items-center justify-between gap-5",
+          "transition-[height] duration-[520ms] ease-[var(--ease-brand)]",
+          scrolled ? "h-[72px] md:h-[84px]" : "h-[84px] md:h-[124px]",
+        )}
+      >
+        <Link
+          to="/$lang"
+          params={{ lang }}
+          className="shrink-0"
+          aria-label="CEYLGEN Premium Natural Resources"
+        >
+          <span className="hidden md:block transition-opacity duration-[520ms]">
+            <Wordmark size={scrolled ? "md" : "lg"} showTagline={!scrolled} />
+          </span>
+          <span className="md:hidden">
+            <Wordmark size="md" showTagline={false} />
+          </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-1">
+        <nav className="hidden lg:flex items-center gap-4 2xl:gap-6">
           {nav.map((item) =>
             item.mega ? (
-              <div key={item.key} className="relative"
+              <div
+                key={item.key}
+                className="relative"
                 onMouseEnter={() => setProductsOpen(true)}
-                onMouseLeave={() => setProductsOpen(false)}>
+                onMouseLeave={() => setProductsOpen(false)}
+              >
                 <button
-                  className="flex items-center gap-1 px-3 py-2 type-small font-medium text-foreground/85 hover:text-foreground transition-colors"
+                  className="flex items-center gap-1.5 py-2 type-label text-foreground/65 hover:text-foreground transition-colors duration-[420ms] ease-[var(--ease-brand)] underline-draw"
                   onClick={() => setProductsOpen((v) => !v)}
                   aria-expanded={productsOpen}
                 >
                   {item.label}
-                  <ChevronDown className={cn("h-3.5 w-3.5 transition-transform", productsOpen && "rotate-180")} strokeWidth={1.6} />
+                  <ChevronDown
+                    className={cn("h-3 w-3 transition-transform duration-[420ms]", productsOpen && "rotate-180")}
+                    strokeWidth={1}
+                  />
                 </button>
-                {productsOpen && (
-                  <div className="absolute left-1/2 top-full -translate-x-1/2 pt-3 min-w-[720px]">
-                    <div className="rounded-sm border border-border bg-card shadow-[var(--shadow-elevated)] p-6 animate-fade-up">
-                      <div className="grid grid-cols-2 gap-3">
-                        {categories.map((c) => (
-                          <Link
-                            key={c.slug}
-                            to="/$lang/categories/$category"
-                            params={{ lang, category: c.slug }}
-                            className="group flex items-start gap-3 rounded-sm p-3 hover:bg-muted transition-colors"
-                          >
-                            <span
-                              className={cn("mt-1 h-2.5 w-2.5 rounded-full shrink-0", accentDot[c.accent])}
-                              aria-hidden
-                            />
-                            <span className="flex flex-col gap-0.5 min-w-0">
-                              <span className="type-h4 text-foreground">
-                                {categoryName(lang, c)}
-                              </span>
-                              <span className="type-small text-muted-foreground line-clamp-2">
-                                {t(c.descKey)}
-                              </span>
-                            </span>
-                          </Link>
-                        ))}
-                      </div>
-                      <div className="mt-4 flex items-center justify-between border-t border-border pt-4">
-                        <Link
-                          to="/$lang/products"
-                          params={{ lang }}
-                          className="type-small font-medium text-primary inline-flex items-center gap-1 hover:gap-2 transition-all"
-                        >
-                          {t("nav.products")} <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.6} />
-                        </Link>
-                        <div className="gold-line w-32" />
-                      </div>
-                    </div>
-                  </div>
-                )}
               </div>
             ) : (
               <Link
                 key={item.key}
                 to={item.to}
-                className="px-3 py-2 type-small font-medium text-foreground/85 hover:text-foreground transition-colors relative after:absolute after:left-3 after:right-3 after:bottom-1 after:h-px after:bg-champagne after:scale-x-0 hover:after:scale-x-100 after:transition-transform after:origin-left"
-                activeProps={{ className: "text-foreground after:scale-x-100" }}
+                className="py-2 type-label text-foreground/65 hover:text-foreground transition-colors duration-[420ms] ease-[var(--ease-brand)] underline-draw"
+                activeProps={{ className: "text-foreground" }}
               >
                 {item.label}
               </Link>
@@ -134,41 +109,44 @@ export function Header() {
           )}
         </nav>
 
-        <div className="hidden md:flex items-center gap-2">
+        <div className="hidden md:flex items-center gap-4 shrink-0">
           <div className="relative">
             <button
               onClick={() => setLangOpen((v) => !v)}
-              className="flex items-center gap-1.5 px-2.5 py-1.5 type-label text-foreground/70 hover:text-foreground border border-transparent hover:border-border rounded-sm transition-colors"
+              className="flex items-center gap-1.5 py-2 type-label text-foreground/55 hover:text-foreground transition-colors duration-[420ms]"
               aria-label={t("nav.language")}
               aria-expanded={langOpen}
             >
-              {lang}
-              <ChevronDown className={cn("h-3 w-3 transition-transform", langOpen && "rotate-180")} strokeWidth={1.6} />
+              <span className="uppercase">{lang}</span>
+              <ChevronDown className={cn("h-3 w-3 transition-transform duration-[420ms]", langOpen && "rotate-180")} strokeWidth={1} />
             </button>
             {langOpen && (
-              <div className="absolute right-0 top-full mt-1 min-w-[140px] rounded-sm border border-border bg-card shadow-[var(--shadow-soft)] py-1 animate-fade-up">
+              <div className="absolute right-0 top-full mt-3 min-w-[168px] border border-border bg-card shadow-[var(--shadow-elevated)] py-2 animate-fade-up">
                 {LANGS.map((l) => (
                   <button
                     key={l}
                     onClick={() => { changeLang(l); setLangOpen(false); }}
                     className={cn(
-                      "block w-full text-left px-3 py-2 type-small hover:bg-muted transition-colors",
-                      l === lang && "text-primary font-medium",
+                      "flex w-full items-center gap-3 px-4 py-2.5 type-small text-left transition-colors hover:bg-secondary/60",
+                      l === lang && "text-champagne",
                     )}
                   >
-                    <span className="uppercase text-xs tracking-wider mr-2">{l}</span>
-                    {LANG_LABELS[l]}
+                    <span className="type-label w-5">{l}</span>
+                    <span className="text-muted-foreground">{LANG_LABELS[l]}</span>
                   </button>
                 ))}
               </div>
             )}
           </div>
-          <Button asChild variant="primary" size="sm">
-            <Link to="/$lang/contact" params={{ lang }}>
-              {t("nav.request")}
-              <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.6} />
-            </Link>
-          </Button>
+          <div className="hidden md:block lg:hidden 2xl:block">
+            <Button asChild variant="secondary" size="sm">
+              <Link to="/$lang/contact" params={{ lang }}>
+                {t("nav.request")}
+                <ArrowRight strokeWidth={1} />
+              </Link>
+            </Button>
+          </div>
+
         </div>
 
         <button
@@ -176,69 +154,109 @@ export function Header() {
           onClick={() => setMobileOpen(true)}
           aria-label={t("nav.menu")}
         >
-          <Menu className="h-5 w-5" strokeWidth={1.6} />
+          <Menu className="h-5 w-5" strokeWidth={1} />
         </button>
+      </div>
+
+      {/* Full-width mega panel — editorial, hairline, no heavy surfaces */}
+      <div
+        className={cn(
+          "hidden lg:block absolute left-0 right-0 top-full overflow-hidden border-t border-border bg-background",
+          "transition-[max-height,opacity] duration-[520ms] ease-[var(--ease-brand)]",
+          productsOpen ? "max-h-[520px] opacity-100" : "max-h-0 opacity-0 pointer-events-none",
+        )}
+        onMouseEnter={() => setProductsOpen(true)}
+        onMouseLeave={() => setProductsOpen(false)}
+      >
+        <div className="container-page py-14">
+          <div className="grid grid-cols-12 gap-12">
+            <div className="col-span-3">
+              <p className="type-label text-muted-foreground">{t("lines.eyebrow")}</p>
+              <p className="mt-5 type-h3 max-w-[14ch]">{t("lines.title")}</p>
+              <Link
+                to="/$lang/products"
+                params={{ lang }}
+                className="mt-7 inline-flex items-center gap-2 type-label text-graphite underline-draw"
+              >
+                {t("nav.products")}
+                <ArrowRight className="h-3 w-3" strokeWidth={1} />
+              </Link>
+            </div>
+            <div className="col-span-9 grid grid-cols-4 gap-x-8">
+              {categories.map((c, i) => (
+                <Link
+                  key={c.slug}
+                  to="/$lang/categories/$category"
+                  params={{ lang, category: c.slug }}
+                  className="group relative block pt-6"
+                >
+                  <span className="absolute left-0 top-0 h-px w-full bg-border" />
+                  <span className="absolute left-0 top-0 h-px w-0 bg-champagne transition-[width] duration-[720ms] ease-[var(--ease-brand)] group-hover:w-full" />
+                  <span className="type-index">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="mt-5 block type-h4">{categoryName(lang, c)}</span>
+                  <span className="mt-3 block type-small text-muted-foreground line-clamp-3">
+                    {t(c.descKey)}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
       {/* Mobile drawer */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="absolute inset-0 bg-graphite/60 backdrop-blur-sm animate-fade-up" onClick={() => setMobileOpen(false)} />
-          <div className="absolute right-0 top-0 h-full w-[88%] max-w-sm bg-background border-l border-border shadow-[var(--shadow-elevated)] flex flex-col">
-            <div className="flex items-center justify-between px-5 h-16 border-b border-border">
-              <Wordmark size="sm" showTagline={false} />
+          <div className="absolute inset-0 bg-graphite/50 backdrop-blur-sm animate-fade-up" onClick={() => setMobileOpen(false)} />
+          <div className="absolute right-0 top-0 h-full w-[92%] max-w-md bg-background flex flex-col animate-fade-up">
+            <div className="flex items-center justify-between px-6 h-[84px]">
+              <Wordmark size="md" showTagline={false} />
               <button aria-label={t("nav.close")} onClick={() => setMobileOpen(false)} className="p-2 -mr-2">
-                <X className="h-5 w-5" strokeWidth={1.6} />
+                <X className="h-5 w-5" strokeWidth={1} />
               </button>
             </div>
-            <div className="flex-1 overflow-y-auto px-5 py-6">
-              <p className="type-label text-muted-foreground mb-3">{t("nav.products")}</p>
-              <div className="space-y-1 mb-6">
-                {categories.map((c) => (
+            <div className="flex-1 overflow-y-auto px-6 pt-6 pb-10">
+              <p className="type-label text-muted-foreground">{t("nav.products")}</p>
+              <div className="mt-5">
+                {categories.map((c, i) => (
                   <Link
                     key={c.slug}
                     to="/$lang/categories/$category"
                     params={{ lang, category: c.slug }}
-                    className="flex items-center gap-2.5 py-2 text-foreground/90"
+                    className="flex items-baseline gap-4 border-t border-border py-4"
                   >
-                    <span className={cn("h-2 w-2 rounded-full", accentDot[c.accent])} />
+                    <span className="type-index">{String(i + 1).padStart(2, "0")}</span>
                     <span className="type-h4">{categoryName(lang, c)}</span>
                   </Link>
                 ))}
                 <Link
                   to="/$lang/products"
                   params={{ lang }}
-                  className="flex items-center gap-1 py-2 type-small text-primary"
+                  className="flex items-center gap-2 border-t border-border py-4 type-label text-champagne"
                 >
-                  {t("nav.products")} <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.6} />
+                  {t("nav.products")} <ArrowRight className="h-3 w-3" strokeWidth={1} />
                 </Link>
               </div>
-              <div className="h-px bg-border mb-6" />
-              <nav className="flex flex-col gap-1">
+
+              <nav className="mt-10 flex flex-col">
                 {nav.filter((n) => !n.mega).map((n) => (
-                  <Link
-                    key={n.key}
-                    to={n.to}
-                    className="py-2.5 text-base text-foreground/90"
-                  >
+                  <Link key={n.key} to={n.to} className="border-t border-border py-4 type-h4">
                     {n.label}
                   </Link>
                 ))}
               </nav>
             </div>
-            <div className="border-t border-border p-5 space-y-4">
-              <div>
-                <p className="type-label text-muted-foreground mb-2">{t("nav.language")}</p>
-                <div className="flex gap-2">
+            <div className="px-6 pb-8 pt-6 border-t border-border space-y-5">
+              <div className="flex items-center gap-5">
+                <span className="type-label text-muted-foreground">{t("nav.language")}</span>
+                <div className="flex gap-4">
                   {LANGS.map((l) => (
                     <button
                       key={l}
                       onClick={() => changeLang(l)}
                       className={cn(
-                        "flex-1 rounded-sm border px-3 py-2 type-label transition-colors",
-                        l === lang
-                          ? "border-primary bg-primary text-primary-foreground"
-                          : "border-border text-foreground/70 hover:border-foreground",
+                        "type-label transition-colors",
+                        l === lang ? "text-champagne" : "text-foreground/45 hover:text-foreground",
                       )}
                     >
                       {l}
@@ -248,7 +266,7 @@ export function Header() {
               </div>
               <Button asChild variant="primary" className="w-full">
                 <Link to="/$lang/contact" params={{ lang }}>
-                  {t("nav.request")} <ArrowRight className="h-3.5 w-3.5" strokeWidth={1.6} />
+                  {t("nav.request")} <ArrowRight strokeWidth={1} />
                 </Link>
               </Button>
             </div>

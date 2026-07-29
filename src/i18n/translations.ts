@@ -54,6 +54,10 @@ export const translations: Record<Lang, Dict> = {
     "lines.eyebrow": "Líneas de producto",
     "lines.title": "Cuatro líneas, un mismo estándar.",
     "lines.explore": "Explorar productos",
+    "featured.eyebrow": "Selección",
+    "featured.title": "Producto destacado.",
+    "featured.lead": "Grados de carbón activo de cáscara de coco con especificación completa y métodos ASTM verificados.",
+    "featured.view": "Ver ficha técnica",
 
     "sourcing.eyebrow": "Global Sourcing",
     "sourcing.title": "De Sri Lanka al mundo, con base comercial en España.",
@@ -284,6 +288,10 @@ export const translations: Record<Lang, Dict> = {
     "lines.eyebrow": "Product lines",
     "lines.title": "Four lines, one shared standard.",
     "lines.explore": "Explore products",
+    "featured.eyebrow": "Selection",
+    "featured.title": "Featured products.",
+    "featured.lead": "Coconut shell activated carbon grades with full specification and verified ASTM methods.",
+    "featured.view": "View data sheet",
 
     "sourcing.eyebrow": "Global sourcing",
     "sourcing.title": "From Sri Lanka to the world, from a commercial base in Spain.",
@@ -514,6 +522,10 @@ export const translations: Record<Lang, Dict> = {
     "lines.eyebrow": "Lignes de produits",
     "lines.title": "Quatre lignes, un même standard.",
     "lines.explore": "Explorer les produits",
+    "featured.eyebrow": "Sélection",
+    "featured.title": "Produits en vedette.",
+    "featured.lead": "Charbons actifs de coque de coco avec spécification complète et méthodes ASTM vérifiées.",
+    "featured.view": "Voir la fiche technique",
 
     "sourcing.eyebrow": "Global sourcing",
     "sourcing.title": "Du Sri Lanka au monde, depuis une base commerciale en Espagne.",
