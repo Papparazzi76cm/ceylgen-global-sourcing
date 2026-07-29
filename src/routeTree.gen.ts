@@ -9,38 +9,216 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as LangRouteRouteImport } from './routes/$lang/route'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as LangIndexRouteImport } from './routes/$lang/index'
+import { Route as LangSustainabilityRouteImport } from './routes/$lang/sustainability'
+import { Route as LangResourcesRouteImport } from './routes/$lang/resources'
+import { Route as LangQualityRouteImport } from './routes/$lang/quality'
+import { Route as LangIndustriesRouteImport } from './routes/$lang/industries'
+import { Route as LangContactRouteImport } from './routes/$lang/contact'
+import { Route as LangAboutRouteImport } from './routes/$lang/about'
+import { Route as LangProductsIndexRouteImport } from './routes/$lang/products/index'
+import { Route as LangProductsSlugRouteImport } from './routes/$lang/products/$slug'
+import { Route as LangLegalPrivacyRouteImport } from './routes/$lang/legal/privacy'
+import { Route as LangLegalNoticeRouteImport } from './routes/$lang/legal/notice'
+import { Route as LangLegalCookiesRouteImport } from './routes/$lang/legal/cookies'
+import { Route as LangCategoriesCategoryRouteImport } from './routes/$lang/categories/$category'
 
+const LangRouteRoute = LangRouteRouteImport.update({
+  id: '/$lang',
+  path: '/$lang',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const LangIndexRoute = LangIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangSustainabilityRoute = LangSustainabilityRouteImport.update({
+  id: '/sustainability',
+  path: '/sustainability',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangResourcesRoute = LangResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangQualityRoute = LangQualityRouteImport.update({
+  id: '/quality',
+  path: '/quality',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangIndustriesRoute = LangIndustriesRouteImport.update({
+  id: '/industries',
+  path: '/industries',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangContactRoute = LangContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangAboutRoute = LangAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangProductsIndexRoute = LangProductsIndexRouteImport.update({
+  id: '/products/',
+  path: '/products/',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangProductsSlugRoute = LangProductsSlugRouteImport.update({
+  id: '/products/$slug',
+  path: '/products/$slug',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangLegalPrivacyRoute = LangLegalPrivacyRouteImport.update({
+  id: '/legal/privacy',
+  path: '/legal/privacy',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangLegalNoticeRoute = LangLegalNoticeRouteImport.update({
+  id: '/legal/notice',
+  path: '/legal/notice',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangLegalCookiesRoute = LangLegalCookiesRouteImport.update({
+  id: '/legal/cookies',
+  path: '/legal/cookies',
+  getParentRoute: () => LangRouteRoute,
+} as any)
+const LangCategoriesCategoryRoute = LangCategoriesCategoryRouteImport.update({
+  id: '/categories/$category',
+  path: '/categories/$category',
+  getParentRoute: () => LangRouteRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/$lang': typeof LangRouteRouteWithChildren
+  '/$lang/about': typeof LangAboutRoute
+  '/$lang/contact': typeof LangContactRoute
+  '/$lang/industries': typeof LangIndustriesRoute
+  '/$lang/quality': typeof LangQualityRoute
+  '/$lang/resources': typeof LangResourcesRoute
+  '/$lang/sustainability': typeof LangSustainabilityRoute
+  '/$lang/': typeof LangIndexRoute
+  '/$lang/categories/$category': typeof LangCategoriesCategoryRoute
+  '/$lang/legal/cookies': typeof LangLegalCookiesRoute
+  '/$lang/legal/notice': typeof LangLegalNoticeRoute
+  '/$lang/legal/privacy': typeof LangLegalPrivacyRoute
+  '/$lang/products/$slug': typeof LangProductsSlugRoute
+  '/$lang/products/': typeof LangProductsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/$lang/about': typeof LangAboutRoute
+  '/$lang/contact': typeof LangContactRoute
+  '/$lang/industries': typeof LangIndustriesRoute
+  '/$lang/quality': typeof LangQualityRoute
+  '/$lang/resources': typeof LangResourcesRoute
+  '/$lang/sustainability': typeof LangSustainabilityRoute
+  '/$lang': typeof LangIndexRoute
+  '/$lang/categories/$category': typeof LangCategoriesCategoryRoute
+  '/$lang/legal/cookies': typeof LangLegalCookiesRoute
+  '/$lang/legal/notice': typeof LangLegalNoticeRoute
+  '/$lang/legal/privacy': typeof LangLegalPrivacyRoute
+  '/$lang/products/$slug': typeof LangProductsSlugRoute
+  '/$lang/products': typeof LangProductsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/$lang': typeof LangRouteRouteWithChildren
+  '/$lang/about': typeof LangAboutRoute
+  '/$lang/contact': typeof LangContactRoute
+  '/$lang/industries': typeof LangIndustriesRoute
+  '/$lang/quality': typeof LangQualityRoute
+  '/$lang/resources': typeof LangResourcesRoute
+  '/$lang/sustainability': typeof LangSustainabilityRoute
+  '/$lang/': typeof LangIndexRoute
+  '/$lang/categories/$category': typeof LangCategoriesCategoryRoute
+  '/$lang/legal/cookies': typeof LangLegalCookiesRoute
+  '/$lang/legal/notice': typeof LangLegalNoticeRoute
+  '/$lang/legal/privacy': typeof LangLegalPrivacyRoute
+  '/$lang/products/$slug': typeof LangProductsSlugRoute
+  '/$lang/products/': typeof LangProductsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/$lang'
+    | '/$lang/about'
+    | '/$lang/contact'
+    | '/$lang/industries'
+    | '/$lang/quality'
+    | '/$lang/resources'
+    | '/$lang/sustainability'
+    | '/$lang/'
+    | '/$lang/categories/$category'
+    | '/$lang/legal/cookies'
+    | '/$lang/legal/notice'
+    | '/$lang/legal/privacy'
+    | '/$lang/products/$slug'
+    | '/$lang/products/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/$lang/about'
+    | '/$lang/contact'
+    | '/$lang/industries'
+    | '/$lang/quality'
+    | '/$lang/resources'
+    | '/$lang/sustainability'
+    | '/$lang'
+    | '/$lang/categories/$category'
+    | '/$lang/legal/cookies'
+    | '/$lang/legal/notice'
+    | '/$lang/legal/privacy'
+    | '/$lang/products/$slug'
+    | '/$lang/products'
+  id:
+    | '__root__'
+    | '/'
+    | '/$lang'
+    | '/$lang/about'
+    | '/$lang/contact'
+    | '/$lang/industries'
+    | '/$lang/quality'
+    | '/$lang/resources'
+    | '/$lang/sustainability'
+    | '/$lang/'
+    | '/$lang/categories/$category'
+    | '/$lang/legal/cookies'
+    | '/$lang/legal/notice'
+    | '/$lang/legal/privacy'
+    | '/$lang/products/$slug'
+    | '/$lang/products/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  LangRouteRoute: typeof LangRouteRouteWithChildren
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/$lang': {
+      id: '/$lang'
+      path: '/$lang'
+      fullPath: '/$lang'
+      preLoaderRoute: typeof LangRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -48,22 +226,140 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/$lang/': {
+      id: '/$lang/'
+      path: '/'
+      fullPath: '/$lang/'
+      preLoaderRoute: typeof LangIndexRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/sustainability': {
+      id: '/$lang/sustainability'
+      path: '/sustainability'
+      fullPath: '/$lang/sustainability'
+      preLoaderRoute: typeof LangSustainabilityRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/resources': {
+      id: '/$lang/resources'
+      path: '/resources'
+      fullPath: '/$lang/resources'
+      preLoaderRoute: typeof LangResourcesRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/quality': {
+      id: '/$lang/quality'
+      path: '/quality'
+      fullPath: '/$lang/quality'
+      preLoaderRoute: typeof LangQualityRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/industries': {
+      id: '/$lang/industries'
+      path: '/industries'
+      fullPath: '/$lang/industries'
+      preLoaderRoute: typeof LangIndustriesRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/contact': {
+      id: '/$lang/contact'
+      path: '/contact'
+      fullPath: '/$lang/contact'
+      preLoaderRoute: typeof LangContactRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/about': {
+      id: '/$lang/about'
+      path: '/about'
+      fullPath: '/$lang/about'
+      preLoaderRoute: typeof LangAboutRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/products/': {
+      id: '/$lang/products/'
+      path: '/products'
+      fullPath: '/$lang/products/'
+      preLoaderRoute: typeof LangProductsIndexRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/products/$slug': {
+      id: '/$lang/products/$slug'
+      path: '/products/$slug'
+      fullPath: '/$lang/products/$slug'
+      preLoaderRoute: typeof LangProductsSlugRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/legal/privacy': {
+      id: '/$lang/legal/privacy'
+      path: '/legal/privacy'
+      fullPath: '/$lang/legal/privacy'
+      preLoaderRoute: typeof LangLegalPrivacyRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/legal/notice': {
+      id: '/$lang/legal/notice'
+      path: '/legal/notice'
+      fullPath: '/$lang/legal/notice'
+      preLoaderRoute: typeof LangLegalNoticeRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/legal/cookies': {
+      id: '/$lang/legal/cookies'
+      path: '/legal/cookies'
+      fullPath: '/$lang/legal/cookies'
+      preLoaderRoute: typeof LangLegalCookiesRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
+    '/$lang/categories/$category': {
+      id: '/$lang/categories/$category'
+      path: '/categories/$category'
+      fullPath: '/$lang/categories/$category'
+      preLoaderRoute: typeof LangCategoriesCategoryRouteImport
+      parentRoute: typeof LangRouteRoute
+    }
   }
 }
 
+interface LangRouteRouteChildren {
+  LangAboutRoute: typeof LangAboutRoute
+  LangContactRoute: typeof LangContactRoute
+  LangIndustriesRoute: typeof LangIndustriesRoute
+  LangQualityRoute: typeof LangQualityRoute
+  LangResourcesRoute: typeof LangResourcesRoute
+  LangSustainabilityRoute: typeof LangSustainabilityRoute
+  LangIndexRoute: typeof LangIndexRoute
+  LangCategoriesCategoryRoute: typeof LangCategoriesCategoryRoute
+  LangLegalCookiesRoute: typeof LangLegalCookiesRoute
+  LangLegalNoticeRoute: typeof LangLegalNoticeRoute
+  LangLegalPrivacyRoute: typeof LangLegalPrivacyRoute
+  LangProductsSlugRoute: typeof LangProductsSlugRoute
+  LangProductsIndexRoute: typeof LangProductsIndexRoute
+}
+
+const LangRouteRouteChildren: LangRouteRouteChildren = {
+  LangAboutRoute: LangAboutRoute,
+  LangContactRoute: LangContactRoute,
+  LangIndustriesRoute: LangIndustriesRoute,
+  LangQualityRoute: LangQualityRoute,
+  LangResourcesRoute: LangResourcesRoute,
+  LangSustainabilityRoute: LangSustainabilityRoute,
+  LangIndexRoute: LangIndexRoute,
+  LangCategoriesCategoryRoute: LangCategoriesCategoryRoute,
+  LangLegalCookiesRoute: LangLegalCookiesRoute,
+  LangLegalNoticeRoute: LangLegalNoticeRoute,
+  LangLegalPrivacyRoute: LangLegalPrivacyRoute,
+  LangProductsSlugRoute: LangProductsSlugRoute,
+  LangProductsIndexRoute: LangProductsIndexRoute,
+}
+
+const LangRouteRouteWithChildren = LangRouteRoute._addFileChildren(
+  LangRouteRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  LangRouteRoute: LangRouteRouteWithChildren,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
