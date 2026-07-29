@@ -1,7 +1,7 @@
 import { createFileRoute, Outlet, Link, redirect, useNavigate } from "@tanstack/react-router";
 import { useAuth } from "@/hooks/useAuth";
 import { supabase } from "@/integrations/supabase/client";
-import { LayoutDashboard, Package, Inbox, LogOut, ShieldCheck } from "lucide-react";
+import { LayoutDashboard, Package, Inbox, LogOut, ShieldCheck, Tags, FileText } from "lucide-react";
 import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { bootstrapFirstAdmin } from "@/lib/bootstrap-admin.functions";
@@ -43,6 +43,8 @@ function AdminLayout() {
         <nav className="px-3 space-y-1 text-sm">
           <NavLink to="/admin" icon={<LayoutDashboard className="h-4 w-4" />}>Dashboard</NavLink>
           <NavLink to="/admin/products" icon={<Package className="h-4 w-4" />}>Productos</NavLink>
+          <NavLink to="/admin/categories" icon={<Tags className="h-4 w-4" />}>Categorías</NavLink>
+          <NavLink to="/admin/resources" icon={<FileText className="h-4 w-4" />}>Recursos</NavLink>
           <NavLink to="/admin/leads" icon={<Inbox className="h-4 w-4" />}>Leads</NavLink>
         </nav>
         <div className="absolute bottom-0 inset-x-0 p-4 border-t border-border">
