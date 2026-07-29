@@ -382,7 +382,7 @@ export function IndexRow({
         {index && <span className="type-index shrink-0">{index}</span>}
         <span
           className={cn(
-            "type-h4 truncate transition-colors duration-[420ms]",
+            "type-h4 transition-colors duration-[420ms]",
             onDark ? "text-ivory/90 group-hover:text-ivory" : "group-hover:text-graphite",
           )}
         >

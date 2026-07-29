@@ -165,7 +165,7 @@ function HomePage() {
 
         <div className="mt-20 grid grid-cols-1 gap-x-12 gap-y-20 md:grid-cols-2">
           {categories.map((c, idx) => (
-            <Reveal key={c.slug} delay={idx % 2 ? 120 : 0} className={idx % 2 ? "md:mt-24" : undefined}>
+            <Reveal key={c.slug} delay={idx % 2 ? 120 : 0} className={idx % 2 ? "md:mt-16" : undefined}>
               <Link to="/$lang/categories/$category" params={{ lang, category: c.slug }} className="block">
                 <EditorialMedia
                   image={c.image}
