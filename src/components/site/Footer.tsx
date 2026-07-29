@@ -15,21 +15,21 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
           <div className="md:col-span-4">
             <Wordmark size="md" onDark showTagline={true} />
-            <p className="mt-6 text-sm text-ivory/70 max-w-sm leading-relaxed">
+            <p className="mt-6 type-small text-ivory/70 max-w-sm leading-relaxed">
               {t("footer.desc")}
             </p>
-            <div className="mt-6 flex items-center gap-2 text-sm text-ivory/60">
-              <MapPin className="h-4 w-4 text-champagne/80" />
+            <div className="mt-6 flex items-center gap-2 type-small text-ivory/60">
+              <MapPin className="h-4 w-4 text-champagne/80" strokeWidth={1.6} />
               <span>{t("footer.location")}</span>
             </div>
             <p className="mt-3 text-xs text-ivory/50">{t("footer.contact.note")}</p>
           </div>
 
           <div className="md:col-span-2">
-            <h4 className="text-[10px] uppercase tracking-[0.2em] text-champagne mb-4">
+            <h4 className="type-label text-champagne mb-4">
               {t("footer.products")}
             </h4>
-            <ul className="space-y-2.5 text-sm text-ivory/75">
+            <ul className="space-y-2.5 type-small text-ivory/75">
               {categories.map((c) => (
                 <li key={c.slug}>
                   <Link
@@ -54,10 +54,10 @@ export function Footer() {
           </div>
 
           <div className="md:col-span-2">
-            <h4 className="text-[10px] uppercase tracking-[0.2em] text-champagne mb-4">
+            <h4 className="type-label text-champagne mb-4">
               {t("footer.company")}
             </h4>
-            <ul className="space-y-2.5 text-sm text-ivory/75">
+            <ul className="space-y-2.5 type-small text-ivory/75">
               <li><Link to="/$lang/about" params={{ lang }} className="hover:text-champagne transition-colors">{t("nav.about")}</Link></li>
               <li><Link to="/$lang/industries" params={{ lang }} className="hover:text-champagne transition-colors">{t("nav.industries")}</Link></li>
               <li><Link to="/$lang/quality" params={{ lang }} className="hover:text-champagne transition-colors">{t("nav.quality")}</Link></li>
@@ -67,10 +67,10 @@ export function Footer() {
           </div>
 
           <div className="md:col-span-2">
-            <h4 className="text-[10px] uppercase tracking-[0.2em] text-champagne mb-4">
+            <h4 className="type-label text-champagne mb-4">
               {t("footer.resources")}
             </h4>
-            <ul className="space-y-2.5 text-sm text-ivory/75">
+            <ul className="space-y-2.5 type-small text-ivory/75">
               <li><Link to="/$lang/resources" params={{ lang }} className="hover:text-champagne transition-colors">{t("nav.resources")}</Link></li>
               <li><Link to="/$lang/contact" params={{ lang }} className="hover:text-champagne transition-colors">{t("contact.access.sheet")}</Link></li>
             </ul>
@@ -78,15 +78,15 @@ export function Footer() {
           </div>
 
           <div className="md:col-span-2">
-            <h4 className="text-[10px] uppercase tracking-[0.2em] text-champagne mb-4">
+            <h4 className="type-label text-champagne mb-4">
               {t("footer.legal")}
             </h4>
-            <ul className="space-y-2.5 text-sm text-ivory/75">
+            <ul className="space-y-2.5 type-small text-ivory/75">
               <li><Link to="/$lang/legal/privacy" params={{ lang }} className="hover:text-champagne transition-colors">{t("footer.privacy")}</Link></li>
               <li><Link to="/$lang/legal/cookies" params={{ lang }} className="hover:text-champagne transition-colors">{t("footer.cookies")}</Link></li>
               <li><Link to="/$lang/legal/notice" params={{ lang }} className="hover:text-champagne transition-colors">{t("footer.notice")}</Link></li>
             </ul>
-            <h4 className="text-[10px] uppercase tracking-[0.2em] text-champagne mt-6 mb-3">
+            <h4 className="type-label text-champagne mt-6 mb-3">
               {t("nav.language")}
             </h4>
             <div className="flex gap-1.5">

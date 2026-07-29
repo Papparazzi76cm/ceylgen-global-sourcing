@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 import { toast } from "sonner";
+import { Card, Eyebrow, Field, Input, Button, SecondaryButton, GhostButton } from "@/components/ds";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -72,56 +73,47 @@ function AuthPage() {
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-background px-4 py-16">
-      <div className="w-full max-w-md rounded-lg border border-border bg-card p-8 shadow-[var(--shadow-elevated)]">
-        <p className="text-eyebrow">CEYLGEN</p>
-        <h1 className="mt-2 font-serif text-3xl">Panel de administración</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
+      <Card className="w-full max-w-md shadow-[var(--shadow-elevated)] p-8">
+        <Eyebrow>CEYLGEN</Eyebrow>
+        <h1 className="mt-2 type-h2">Panel de administración</h1>
+        <p className="mt-2 type-small text-muted-foreground">
           {mode === "signin" ? "Inicia sesión para continuar." : "Crea una cuenta."}
         </p>
 
-        <button
-          onClick={google}
-          disabled={loading}
-          className="mt-6 w-full inline-flex items-center justify-center gap-2 rounded-sm border border-input bg-background px-4 py-3 text-sm font-medium hover:bg-accent transition-colors disabled:opacity-50"
-        >
+        <SecondaryButton onClick={google} disabled={loading} className="mt-6 w-full">
           Continuar con Google
-        </button>
+        </SecondaryButton>
 
-        <div className="my-6 flex items-center gap-3 text-xs text-muted-foreground">
+        <div className="my-6 flex items-center gap-3 type-small text-muted-foreground">
           <div className="h-px flex-1 bg-border" /> o <div className="h-px flex-1 bg-border" />
         </div>
 
         <form onSubmit={submit} className="space-y-4">
-          <div>
-            <label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Email</label>
-            <input
+          <Field label="Email" htmlFor="email">
+            <Input
+              id="email"
               type="email" required value={email} onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 w-full rounded-sm border border-input bg-background px-3 py-2.5 text-sm"
             />
-          </div>
-          <div>
-            <label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">Contraseña</label>
-            <input
+          </Field>
+          <Field label="Contraseña" htmlFor="password">
+            <Input
+              id="password"
               type="password" required minLength={6} value={password} onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full rounded-sm border border-input bg-background px-3 py-2.5 text-sm"
             />
-          </div>
-          <button
-            type="submit" disabled={loading}
-            className="w-full rounded-sm bg-primary px-4 py-3 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
-          >
+          </Field>
+          <Button type="submit" disabled={loading} className="w-full">
             {loading ? "Procesando…" : mode === "signin" ? "Entrar" : "Crear cuenta"}
-          </button>
+          </Button>
         </form>
 
-        <button
+        <GhostButton
           type="button"
           onClick={() => setMode(mode === "signin" ? "signup" : "signin")}
-          className="mt-6 w-full text-center text-xs text-muted-foreground hover:text-foreground"
+          className="mt-6 w-full text-center normal-case tracking-normal text-xs text-muted-foreground hover:text-foreground"
         >
           {mode === "signin" ? "¿No tienes cuenta? Crear una" : "¿Ya tienes cuenta? Iniciar sesión"}
-        </button>
-      </div>
+        </GhostButton>
+      </Card>
     </main>
   );
 }

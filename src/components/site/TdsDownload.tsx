@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
-import { Download, Loader2 } from "lucide-react";
+import { Download } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import type { Lang } from "@/i18n/translations";
 import { useI18n } from "@/i18n/context";
+import { Button, Spinner } from "@/components/ds";
 
 interface Props {
   productCode: string; // e.g. CG-AC-001
@@ -53,14 +54,9 @@ export function TdsDownload({ productCode }: Props) {
   }
 
   return (
-    <button
-      type="button"
-      onClick={onDownload}
-      disabled={busy}
-      className="inline-flex items-center gap-1.5 rounded-sm bg-champagne px-5 py-3 text-sm font-semibold text-graphite hover:bg-champagne/90 transition-colors disabled:opacity-70"
-    >
-      {busy ? <Loader2 className="h-4 w-4 animate-spin" /> : <Download className="h-4 w-4" />}
+    <Button type="button" variant="gold" onClick={onDownload} disabled={busy}>
+      {busy ? <Spinner /> : <Download className="h-4 w-4" strokeWidth={1.6} />}
       {LABELS[lang]}
-    </button>
+    </Button>
   );
 }

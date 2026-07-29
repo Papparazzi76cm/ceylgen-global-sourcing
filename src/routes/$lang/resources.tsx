@@ -1,9 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useI18n } from "@/i18n/context";
 import { products } from "@/data/products";
-import { Eyebrow, Reveal } from "@/components/site/Reveal";
+import { Reveal } from "@/components/site/Reveal";
 import { FileText, Mail } from "lucide-react";
 import { useState } from "react";
+import { Container, Eyebrow, Select, Button, ResourceCard, EmptyState, TextLink } from "@/components/ds";
 
 type DocType = "datasheet" | "catalog" | "guide" | "faq";
 interface Doc { productSlug?: string; code: string; title: string; type: DocType; lang: "es" | "en" | "fr"; }
@@ -26,57 +27,66 @@ export const Route = createFileRoute("/$lang/resources")({
 
     return (
       <>
-        <section className="container-page pt-16 md:pt-24 pb-8">
+        <Container className="pt-16 md:pt-24 pb-8">
           <Eyebrow>{t("nav.resources")}</Eyebrow>
-          <h1 className="mt-4 font-serif text-4xl md:text-6xl max-w-3xl">{t("resources.title")}</h1>
-          <p className="mt-5 max-w-2xl text-muted-foreground">{t("resources.subtitle")}</p>
-        </section>
-        <section className="container-page pb-16">
-          <div className="rounded-lg border border-border bg-card p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-            <select value={type} onChange={(e) => setType(e.target.value as any)} className="h-11 rounded-sm border border-input bg-background px-3 text-sm">
+          <h1 className="mt-4 type-display max-w-3xl">{t("resources.title")}</h1>
+          <p className="mt-5 max-w-2xl type-lead">{t("resources.subtitle")}</p>
+        </Container>
+        <Container className="pb-16">
+          <div className="rounded-sm border border-border bg-card p-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
+            <Select value={type} onChange={(e) => setType(e.target.value as any)}>
               <option value="all">{t("resources.filter.type")}: {t("catalog.filter.all")}</option>
               <option value="datasheet">{t("resources.type.datasheet")}</option>
               <option value="catalog">{t("resources.type.catalog")}</option>
               <option value="guide">{t("resources.type.guide")}</option>
               <option value="faq">{t("resources.type.faq")}</option>
-            </select>
-            <select value={dl} onChange={(e) => setDl(e.target.value as any)} className="h-11 rounded-sm border border-input bg-background px-3 text-sm">
+            </Select>
+            <Select value={dl} onChange={(e) => setDl(e.target.value as any)}>
               <option value="all">{t("resources.filter.lang")}: {t("catalog.filter.all")}</option>
               <option value="es">ES · Español</option>
               <option value="en">EN · English</option>
               <option value="fr">FR · Français</option>
-            </select>
+            </Select>
           </div>
 
           {filtered.length === 0 ? (
-            <div className="mt-10 rounded-lg border border-dashed border-border p-16 text-center">
-              <Mail className="mx-auto h-6 w-6 text-champagne" />
-              <p className="mt-4 text-muted-foreground max-w-md mx-auto">{t("resources.empty")}</p>
-              <Link to="/$lang/contact" params={{ lang }} className="mt-6 inline-flex rounded-sm bg-primary px-5 py-3 text-sm text-primary-foreground hover:bg-primary/90">{t("nav.contact")}</Link>
-            </div>
+            <EmptyState
+              className="mt-10"
+              icon={<Mail className="h-5 w-5" />}
+              title={t("resources.empty")}
+              action={
+                <Button asChild variant="primary">
+                  <Link to="/$lang/contact" params={{ lang }}>{t("nav.contact")}</Link>
+                </Button>
+              }
+            />
           ) : (
             <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-4">
               {filtered.map((d, i) => (
                 <Reveal key={`${d.code}-${d.lang}`} delay={i * 30}>
-                  <article className="flex items-start gap-4 rounded-lg border border-border bg-card p-5">
-                    <div className="h-11 w-11 rounded-sm bg-champagne/10 text-champagne flex items-center justify-center shrink-0"><FileText className="h-5 w-5" /></div>
-                    <div className="min-w-0 flex-1">
-                      <div className="flex items-center gap-2 text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+                  <ResourceCard
+                    icon={<FileText className="h-5 w-5" />}
+                    title={d.title}
+                    meta={
+                      <span className="flex items-center gap-2">
                         <span>{t(`resources.type.${d.type}`)}</span>
                         <span>·</span>
                         <span>{d.code}</span>
                         <span>·</span>
                         <span>{d.lang.toUpperCase()}</span>
-                      </div>
-                      <h3 className="mt-1 font-serif text-base line-clamp-2">{d.title}</h3>
-                      <Link to="/$lang/contact" params={{ lang }} className="mt-3 inline-flex items-center gap-1 text-sm text-primary hover:underline">{t("resources.request")}</Link>
-                    </div>
-                  </article>
+                      </span>
+                    }
+                    action={
+                      <TextLink asChild>
+                        <Link to="/$lang/contact" params={{ lang }}>{t("resources.request")}</Link>
+                      </TextLink>
+                    }
+                  />
                 </Reveal>
               ))}
             </div>
           )}
-        </section>
+        </Container>
       </>
     );
   },

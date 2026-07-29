@@ -1,6 +1,8 @@
 import { cn } from "@/lib/utils";
 import { useEffect, useRef } from "react";
 
+export { Eyebrow, GoldRule } from "@/components/ds";
+
 export function Reveal({ children, className, delay = 0 }: { children: React.ReactNode; className?: string; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -22,17 +24,4 @@ export function Reveal({ children, className, delay = 0 }: { children: React.Rea
     return () => io.disconnect();
   }, [delay]);
   return <div ref={ref} className={cn("reveal", className)}>{children}</div>;
-}
-
-export function Eyebrow({ children, className }: { children: React.ReactNode; className?: string }) {
-  return (
-    <div className={cn("flex items-center gap-3", className)}>
-      <span className="h-px w-8 bg-champagne" />
-      <span className="text-eyebrow">{children}</span>
-    </div>
-  );
-}
-
-export function GoldRule({ className }: { className?: string }) {
-  return <div className={cn("gold-line", className)} />;
 }

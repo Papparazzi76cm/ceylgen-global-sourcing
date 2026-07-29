@@ -6,6 +6,7 @@ import { useState } from "react";
 import { useServerFn } from "@tanstack/react-start";
 import { bootstrapFirstAdmin } from "@/lib/bootstrap-admin.functions";
 import { toast } from "sonner";
+import { Eyebrow, Card, Field, Input, Button, GhostButton, Spinner } from "@/components/ds";
 
 export const Route = createFileRoute("/_authenticated")({
   ssr: false,
@@ -26,7 +27,11 @@ function AdminLayout() {
   };
 
   if (loading) {
-    return <div className="min-h-screen flex items-center justify-center text-sm text-muted-foreground">Cargando…</div>;
+    return (
+      <div className="min-h-screen flex items-center justify-center gap-3 type-small text-muted-foreground">
+        <Spinner /> Cargando…
+      </div>
+    );
   }
 
   if (!isStaff) {
@@ -37,19 +42,19 @@ function AdminLayout() {
     <div className="min-h-screen bg-background">
       <aside className="fixed inset-y-0 left-0 hidden w-60 border-r border-border bg-card md:block">
         <div className="p-6">
-          <p className="text-eyebrow">CEYLGEN</p>
-          <h2 className="mt-1 font-serif text-xl">Admin</h2>
+          <Eyebrow>CEYLGEN</Eyebrow>
+          <h2 className="mt-1 type-h3">Admin</h2>
         </div>
-        <nav className="px-3 space-y-1 text-sm">
-          <NavLink to="/admin" icon={<LayoutDashboard className="h-4 w-4" />}>Dashboard</NavLink>
-          <NavLink to="/admin/products" icon={<Package className="h-4 w-4" />}>Productos</NavLink>
-          <NavLink to="/admin/leads" icon={<Inbox className="h-4 w-4" />}>Leads</NavLink>
+        <nav className="px-3 space-y-1 type-small">
+          <NavLink to="/admin" icon={<LayoutDashboard className="h-4 w-4" strokeWidth={1.6} />}>Dashboard</NavLink>
+          <NavLink to="/admin/products" icon={<Package className="h-4 w-4" strokeWidth={1.6} />}>Productos</NavLink>
+          <NavLink to="/admin/leads" icon={<Inbox className="h-4 w-4" strokeWidth={1.6} />}>Leads</NavLink>
         </nav>
         <div className="absolute bottom-0 inset-x-0 p-4 border-t border-border">
-          <div className="text-xs text-muted-foreground truncate">{user?.email}</div>
-          <button onClick={signOut} className="mt-2 inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground">
-            <LogOut className="h-3.5 w-3.5" /> Cerrar sesión
-          </button>
+          <div className="type-small text-muted-foreground truncate">{user?.email}</div>
+          <GhostButton onClick={signOut} size="sm" className="mt-2 normal-case tracking-normal px-0 h-auto text-xs text-muted-foreground hover:text-foreground">
+            <LogOut className="h-3.5 w-3.5" strokeWidth={1.6} /> Cerrar sesión
+          </GhostButton>
         </div>
       </aside>
       <main className="md:pl-60">
@@ -95,53 +100,56 @@ function RestrictedScreen({ email, onSignOut }: { email?: string; onSignOut: () 
 
   return (
     <main className="min-h-screen flex items-center justify-center bg-background px-4">
-      <div className="max-w-md w-full rounded-lg border border-border bg-card p-8 text-center">
-        <p className="text-eyebrow">CEYLGEN</p>
-        <h1 className="mt-3 font-serif text-2xl">Acceso restringido</h1>
-        <p className="mt-2 text-sm text-muted-foreground">
+      <Card className="max-w-md w-full p-8 text-center">
+        <Eyebrow className="justify-center">CEYLGEN</Eyebrow>
+        <h1 className="mt-3 type-h2">Acceso restringido</h1>
+        <p className="mt-2 type-small text-muted-foreground">
           Tu cuenta ({email}) no tiene permisos de staff. Solicita a un administrador que te asigne un rol.
         </p>
 
         {!open ? (
-          <button
+          <GhostButton
             onClick={() => setOpen(true)}
-            className="mt-6 inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground"
+            size="sm"
+            className="mt-6 mx-auto normal-case tracking-normal px-0 h-auto text-xs text-muted-foreground hover:text-foreground"
           >
-            <ShieldCheck className="h-3.5 w-3.5" /> Soy el primer administrador
-          </button>
+            <ShieldCheck className="h-3.5 w-3.5" strokeWidth={1.6} /> Soy el primer administrador
+          </GhostButton>
         ) : (
           <form onSubmit={submit} className="mt-6 text-left space-y-3">
-            <label className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-              Clave de bootstrap
-            </label>
-            <input
-              type="password"
-              required
-              value={secret}
-              onChange={(e) => setSecret(e.target.value)}
-              placeholder="ADMIN_BOOTSTRAP_SECRET"
-              className="w-full rounded-sm border border-input bg-background px-3 py-2.5 text-sm"
-            />
-            <p className="text-xs text-muted-foreground">
-              Sólo funciona una vez, mientras no exista ningún administrador. La clave se genera en los secretos del backend como <code>ADMIN_BOOTSTRAP_SECRET</code>.
-            </p>
-            <button
-              type="submit"
-              disabled={busy}
-              className="w-full rounded-sm bg-primary px-4 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 disabled:opacity-50"
+            <Field
+              label="Clave de bootstrap"
+              htmlFor="secret"
+              hint={
+                <>
+                  Sólo funciona una vez, mientras no exista ningún administrador. La clave se genera en los
+                  secretos del backend como <code>ADMIN_BOOTSTRAP_SECRET</code>.
+                </>
+              }
             >
+              <Input
+                id="secret"
+                type="password"
+                required
+                value={secret}
+                onChange={(e) => setSecret(e.target.value)}
+                placeholder="ADMIN_BOOTSTRAP_SECRET"
+              />
+            </Field>
+            <Button type="submit" disabled={busy} className="w-full">
               {busy ? "Activando…" : "Convertirme en admin"}
-            </button>
+            </Button>
           </form>
         )}
 
-        <button
+        <GhostButton
           onClick={onSignOut}
-          className="mt-6 inline-flex items-center gap-2 text-xs text-muted-foreground hover:text-foreground"
+          size="sm"
+          className="mt-6 mx-auto normal-case tracking-normal px-0 h-auto text-xs text-muted-foreground hover:text-foreground"
         >
-          <LogOut className="h-3.5 w-3.5" /> Cerrar sesión
-        </button>
-      </div>
+          <LogOut className="h-3.5 w-3.5" strokeWidth={1.6} /> Cerrar sesión
+        </GhostButton>
+      </Card>
     </main>
   );
 }
