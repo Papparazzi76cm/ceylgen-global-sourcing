@@ -60,7 +60,8 @@
 }
 
 :root {
-  --radius: 0.5rem;
+  --radius: 3px;
+  --border-hairline: oklch(0.88 0.012 85);
 
   /* Brand — literal spec values converted to oklch */
   --graphite: oklch(0.259 0.011 236);      /* #1E2428 */
