@@ -117,7 +117,7 @@ function HomePage() {
       </section>
 
       {/* ── VALUE ────────────────────────────────────────────── */}
-      <Section size="lg" className="section-y-lg">
+      <Section>
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-16">
           <Reveal variant="left" className="lg:col-span-4">
             <Eyebrow>{t("value.eyebrow")}</Eyebrow>
@@ -146,7 +146,7 @@ function HomePage() {
       </Section>
 
       {/* ── PRODUCT LINES ────────────────────────────────────── */}
-      <Section size="lg" className="section-y-lg border-t border-border">
+      <Section size="lg" className="border-t border-border">
         <Reveal>
           <div className="flex flex-col gap-8 md:flex-row md:items-end md:justify-between">
             <div>
@@ -247,7 +247,7 @@ function HomePage() {
       )}
 
       {/* ── SOURCING / GLOBAL PRESENCE ───────────────────────── */}
-      <Section size="lg" className="section-y-lg">
+      <Section>
         <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-12 lg:gap-20">
           <Reveal variant="left" className="lg:col-span-5">
             <Eyebrow>{t("sourcing.eyebrow")}</Eyebrow>
@@ -283,7 +283,7 @@ function HomePage() {
       </Section>
 
       {/* ── INDUSTRIES ───────────────────────────────────────── */}
-      <Section size="lg" className="section-y-lg border-t border-border">
+      <Section size="lg" className="border-t border-border">
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-16">
           <Reveal variant="left" className="lg:col-span-4">
             <Eyebrow>{t("industries.eyebrow")}</Eyebrow>
@@ -334,7 +334,7 @@ function HomePage() {
       </section>
 
       {/* ── SUSTAINABILITY ───────────────────────────────────── */}
-      <Section size="lg" className="section-y-lg">
+      <Section>
         <div className="grid grid-cols-1 gap-14 lg:grid-cols-12 lg:gap-16">
           <Reveal variant="left" className="lg:col-span-4">
             <Eyebrow>{t("sust.eyebrow")}</Eyebrow>
