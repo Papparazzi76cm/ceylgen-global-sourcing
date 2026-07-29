@@ -62,9 +62,30 @@ function ContactPage() {
     }
     if (parsed.data.hp) return; // silent drop on bot
     setSubmitting(true);
-    // Frontend-only submission for Phase 1. Wire to Lovable Cloud in Phase 2.
-    await new Promise((r) => setTimeout(r, 600));
+    const { submitLead } = await import("@/services/leads");
+    const result = await submitLead({
+      name: parsed.data.name,
+      email: parsed.data.email,
+      message: parsed.data.message,
+      company: parsed.data.company,
+      phone: parsed.data.phone || null,
+      country: parsed.data.country,
+      interest: parsed.data.request,
+      lang,
+      source: "contact-form",
+      meta: {
+        job: parsed.data.job || null,
+        category: parsed.data.category || null,
+        product: parsed.data.product || null,
+        application: parsed.data.application || null,
+        volume: parsed.data.volume || null,
+      },
+    });
     setSubmitting(false);
+    if (!result.ok) {
+      toast.error(t("contact.form.error"), { description: result.error });
+      return;
+    }
     setSent(true);
     setErrors({});
     toast.success(t("contact.form.success.title"), { description: t("contact.form.success.desc") });
