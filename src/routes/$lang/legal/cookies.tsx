@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useI18n } from "@/i18n/context";
+import { Legal } from "@/components/site/Legal";
 
 export const Route = createFileRoute("/$lang/legal/cookies")({
   head: ({ params }) => ({ meta: [{ title: "Cookies · CEYLGEN" }, { name: "robots", content: "noindex" }], links: [{ rel: "canonical", href: `/${params.lang}/legal/cookies` }] }),
