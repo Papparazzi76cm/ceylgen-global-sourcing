@@ -5,7 +5,7 @@ import { categories, categoryName } from "@/data/categories";
 import { useEffect, useState } from "react";
 import { Menu, X, ChevronDown, ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { BrandMark } from "./BrandMark";
+import { BrandMark, Wordmark } from "./BrandMark";
 
 const accentDot: Record<string, string> = {
   ocean: "bg-ocean",
@@ -62,14 +62,8 @@ export function Header() {
       )}
     >
       <div className="container-page flex h-16 md:h-20 items-center justify-between gap-4">
-        <Link to="/$lang" params={{ lang }} className="flex items-center gap-2.5 group" aria-label="CEYLGEN">
-          <BrandMark className="h-8 w-8 text-primary transition-transform group-hover:rotate-6" />
-          <div className="flex flex-col leading-none">
-            <span className="font-serif text-xl tracking-tight text-foreground">CEYLGEN</span>
-            <span className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground hidden sm:block">
-              {t("brand.tagline")}
-            </span>
-          </div>
+        <Link to="/$lang" params={{ lang }} className="group" aria-label="CEYLGEN Premium Natural Resources">
+          <Wordmark size="md" showTagline={true} />
         </Link>
 
         <nav className="hidden lg:flex items-center gap-1">
@@ -193,10 +187,7 @@ export function Header() {
           <div className="absolute inset-0 bg-graphite/60 backdrop-blur-sm animate-fade-up" onClick={() => setMobileOpen(false)} />
           <div className="absolute right-0 top-0 h-full w-[88%] max-w-sm bg-background border-l border-border shadow-[var(--shadow-elevated)] flex flex-col">
             <div className="flex items-center justify-between px-5 h-16 border-b border-border">
-              <div className="flex items-center gap-2">
-                <BrandMark className="h-7 w-7 text-primary" />
-                <span className="font-serif text-lg">CEYLGEN</span>
-              </div>
+              <Wordmark size="sm" showTagline={false} />
               <button aria-label={t("nav.close")} onClick={() => setMobileOpen(false)} className="p-2 -mr-2">
                 <X className="h-5 w-5" />
               </button>
