@@ -101,9 +101,16 @@
   --gradient-forest: linear-gradient(135deg, var(--forest), oklch(0.62 0.06 145));
   --gradient-teak: linear-gradient(135deg, var(--teak), var(--champagne));
 
-  --shadow-soft: 0 1px 2px oklch(0.2 0.02 236 / 0.04), 0 8px 24px oklch(0.2 0.02 236 / 0.06);
-  --shadow-elevated: 0 4px 12px oklch(0.2 0.02 236 / 0.08), 0 24px 48px oklch(0.2 0.02 236 / 0.12);
-  --shadow-glow: 0 0 0 1px oklch(0.74 0.075 85 / 0.3), 0 8px 32px oklch(0.44 0.078 226 / 0.2);
+  /* Shadows — quiet luxury: barely there */
+  --shadow-soft: 0 1px 1px oklch(0.2 0.02 236 / 0.02), 0 6px 18px oklch(0.2 0.02 236 / 0.035);
+  --shadow-elevated: 0 1px 2px oklch(0.2 0.02 236 / 0.03), 0 14px 34px oklch(0.2 0.02 236 / 0.06);
+  --shadow-glow: 0 0 0 1px oklch(0.74 0.075 85 / 0.28);
+
+  /* Motion */
+  --ease-brand: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 160ms;
+  --dur-base: 240ms;
+  --dur-slow: 480ms;
 }
 
 .dark {
