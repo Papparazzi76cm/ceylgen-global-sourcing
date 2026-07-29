@@ -96,7 +96,8 @@
   --ring: var(--ocean);
 
   /* Gradients & shadows */
-  --gradient-hero: linear-gradient(135deg, oklch(0.28 0.02 236 / 0.85) 0%, oklch(0.44 0.078 226 / 0.65) 60%, oklch(0.7 0.13 189 / 0.35) 100%);
+  --gradient-hero: linear-gradient(180deg, oklch(0.18 0.012 236 / 0.62) 0%, oklch(0.20 0.012 236 / 0.34) 38%, oklch(0.16 0.012 236 / 0.86) 100%);
+  --gradient-hero-side: linear-gradient(90deg, oklch(0.16 0.012 236 / 0.7) 0%, oklch(0.16 0.012 236 / 0.15) 55%, transparent 100%);
   --gradient-ocean: linear-gradient(135deg, var(--ocean), var(--turquoise));
   --gradient-copper: linear-gradient(135deg, var(--copper), var(--champagne));
   --gradient-forest: linear-gradient(135deg, var(--forest), oklch(0.62 0.06 145));
