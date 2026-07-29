@@ -109,7 +109,7 @@ export function Header() {
           )}
         </nav>
 
-        <div className="hidden md:flex items-center gap-5 shrink-0">
+        <div className="hidden md:flex lg:hidden xl:flex items-center gap-5 shrink-0">
           <div className="relative">
             <button
               onClick={() => setLangOpen((v) => !v)}
