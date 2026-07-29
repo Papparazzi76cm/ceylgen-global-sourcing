@@ -56,7 +56,7 @@ export function Header() {
     >
       <div
         className={cn(
-          "container-page flex items-center justify-between gap-6",
+          "container-page flex items-center justify-between gap-5",
           "transition-[height] duration-[520ms] ease-[var(--ease-brand)]",
           scrolled ? "h-[72px] md:h-[84px]" : "h-[84px] md:h-[124px]",
         )}
@@ -75,7 +75,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav className="hidden lg:flex items-center gap-6 xl:gap-8">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-7">
           {nav.map((item) =>
             item.mega ? (
               <div
@@ -109,7 +109,7 @@ export function Header() {
           )}
         </nav>
 
-        <div className="hidden md:flex lg:hidden xl:flex items-center gap-5 shrink-0">
+        <div className="hidden md:flex items-center gap-4 shrink-0">
           <div className="relative">
             <button
               onClick={() => setLangOpen((v) => !v)}
