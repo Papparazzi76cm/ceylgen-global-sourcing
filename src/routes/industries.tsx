@@ -4,7 +4,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { PageHeader, Section, Grid, FeatureCard, TextLink } from "@/components/ds";
 import { Droplet, Wind, Filter, Utensils, Sprout, Anchor, Sailboat, Globe2, ArrowRight } from "lucide-react";
 
-export const Route = createFileRoute("/$lang/industries")({
+export const Route = createFileRoute("/industries")({
   head: ({ params }) => {
     const title = params.lang === "en" ? "Industries — CEYLGEN" : params.lang === "fr" ? "Industries — CEYLGEN" : "Industrias — CEYLGEN";
     return { meta: [{ title }, { name: "description", content: "Industries and applications served by CEYLGEN's premium natural resources." }, { property: "og:title", content: title }, { property: "og:url", content: `/${params.lang}/industries` }], links: [{ rel: "canonical", href: `/${params.lang}/industries` }] };

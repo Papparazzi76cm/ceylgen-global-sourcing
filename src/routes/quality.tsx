@@ -4,7 +4,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { PageHeader, Section, SectionHeader, Grid, Card, CardBody, CardTitle, Alert, Button, GoldRule } from "@/components/ds";
 import { ArrowRight, Info } from "lucide-react";
 
-export const Route = createFileRoute("/$lang/quality")({
+export const Route = createFileRoute("/quality")({
   head: ({ params }) => {
     const title = params.lang === "en" ? "Quality — CEYLGEN" : params.lang === "fr" ? "Qualité — CEYLGEN" : "Calidad — CEYLGEN";
     return { meta: [{ title }, { name: "description", content: "CEYLGEN quality and compliance approach: supplier selection, documentation and traceability." }, { property: "og:title", content: title }, { property: "og:url", content: `/${params.lang}/quality` }], links: [{ rel: "canonical", href: `/${params.lang}/quality` }] };

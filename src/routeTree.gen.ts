@@ -9,8 +9,12 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SustainabilityRouteImport } from './routes/sustainability'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
+import { Route as QualityRouteImport } from './routes/quality'
+import { Route as IndustriesRouteImport } from './routes/industries'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AboutRouteImport } from './routes/about'
 import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as LangRouteRouteImport } from './routes/$lang/route'
 import { Route as IndexRouteImport } from './routes/index'
@@ -31,14 +35,34 @@ import { Route as LangLegalNoticeRouteImport } from './routes/$lang/legal/notice
 import { Route as LangLegalCookiesRouteImport } from './routes/$lang/legal/cookies'
 import { Route as LangCategoriesCategoryRouteImport } from './routes/$lang/categories/$category'
 
+const SustainabilityRoute = SustainabilityRouteImport.update({
+  id: '/sustainability',
+  path: '/sustainability',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
   path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
+const QualityRoute = QualityRouteImport.update({
+  id: '/quality',
+  path: '/quality',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndustriesRoute = IndustriesRouteImport.update({
+  id: '/industries',
+  path: '/industries',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
@@ -140,8 +164,12 @@ const LangCategoriesCategoryRoute = LangCategoriesCategoryRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/$lang': typeof LangRouteRouteWithChildren
+  '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/industries': typeof IndustriesRoute
+  '/quality': typeof QualityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sustainability': typeof SustainabilityRoute
   '/$lang/about': typeof LangAboutRoute
   '/$lang/contact': typeof LangContactRoute
   '/$lang/industries': typeof LangIndustriesRoute
@@ -161,8 +189,12 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/industries': typeof IndustriesRoute
+  '/quality': typeof QualityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sustainability': typeof SustainabilityRoute
   '/$lang/about': typeof LangAboutRoute
   '/$lang/contact': typeof LangContactRoute
   '/$lang/industries': typeof LangIndustriesRoute
@@ -185,8 +217,12 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/$lang': typeof LangRouteRouteWithChildren
   '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
+  '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
+  '/industries': typeof IndustriesRoute
+  '/quality': typeof QualityRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/sustainability': typeof SustainabilityRoute
   '/$lang/about': typeof LangAboutRoute
   '/$lang/contact': typeof LangContactRoute
   '/$lang/industries': typeof LangIndustriesRoute
@@ -209,8 +245,12 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/$lang'
+    | '/about'
     | '/auth'
+    | '/industries'
+    | '/quality'
     | '/sitemap.xml'
+    | '/sustainability'
     | '/$lang/about'
     | '/$lang/contact'
     | '/$lang/industries'
@@ -230,8 +270,12 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
     | '/auth'
+    | '/industries'
+    | '/quality'
     | '/sitemap.xml'
+    | '/sustainability'
     | '/$lang/about'
     | '/$lang/contact'
     | '/$lang/industries'
@@ -253,8 +297,12 @@ export interface FileRouteTypes {
     | '/'
     | '/$lang'
     | '/_authenticated'
+    | '/about'
     | '/auth'
+    | '/industries'
+    | '/quality'
     | '/sitemap.xml'
+    | '/sustainability'
     | '/$lang/about'
     | '/$lang/contact'
     | '/$lang/industries'
@@ -277,12 +325,23 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   LangRouteRoute: typeof LangRouteRouteWithChildren
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
+  AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
+  IndustriesRoute: typeof IndustriesRoute
+  QualityRoute: typeof QualityRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  SustainabilityRoute: typeof SustainabilityRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/sustainability': {
+      id: '/sustainability'
+      path: '/sustainability'
+      fullPath: '/sustainability'
+      preLoaderRoute: typeof SustainabilityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/sitemap.xml': {
       id: '/sitemap.xml'
       path: '/sitemap.xml'
@@ -290,11 +349,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/quality': {
+      id: '/quality'
+      path: '/quality'
+      fullPath: '/quality'
+      preLoaderRoute: typeof QualityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/industries': {
+      id: '/industries'
+      path: '/industries'
+      fullPath: '/industries'
+      preLoaderRoute: typeof IndustriesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth': {
       id: '/auth'
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -488,8 +568,12 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   LangRouteRoute: LangRouteRouteWithChildren,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
+  AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
+  IndustriesRoute: IndustriesRoute,
+  QualityRoute: QualityRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  SustainabilityRoute: SustainabilityRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

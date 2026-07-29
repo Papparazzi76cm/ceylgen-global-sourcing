@@ -4,7 +4,7 @@ import { Reveal } from "@/components/site/Reveal";
 import { PageHeader, Section, Grid, Card, CardBody, CardTitle, CardText, GoldRule, Button } from "@/components/ds";
 import { ArrowRight } from "lucide-react";
 
-export const Route = createFileRoute("/$lang/about")({
+export const Route = createFileRoute("/about")({
   head: ({ params }) => {
     const title = params.lang === "en" ? "About CEYLGEN" : params.lang === "fr" ? "À propos de CEYLGEN" : "Sobre CEYLGEN";
     return { meta: [{ title }, { name: "description", content: "CEYLGEN is a Spanish importer and distributor of premium natural resources." }, { property: "og:title", content: title }, { property: "og:url", content: `/${params.lang}/about` }], links: [{ rel: "canonical", href: `/${params.lang}/about` }] };

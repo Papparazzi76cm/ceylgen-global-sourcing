@@ -19,7 +19,7 @@ import {
   TextLink,
 } from "@/components/ds";
 
-export const Route = createFileRoute("/$lang/")({
+export const Route = createFileRoute("/")({
   head: ({ params }) => {
     const l = params.lang;
     const title =

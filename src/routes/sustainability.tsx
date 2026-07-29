@@ -3,7 +3,7 @@ import { useI18n } from "@/i18n/context";
 import { Reveal } from "@/components/site/Reveal";
 import { PageHeader, Section, Grid, Card, CardBody, CardTitle } from "@/components/ds";
 
-export const Route = createFileRoute("/$lang/sustainability")({
+export const Route = createFileRoute("/sustainability")({
   head: ({ params }) => {
     const title = params.lang === "en" ? "Sustainability — CEYLGEN" : params.lang === "fr" ? "Durabilité — CEYLGEN" : "Sostenibilidad — CEYLGEN";
     return { meta: [{ title }, { name: "description", content: "CEYLGEN's sober and verifiable approach to sustainability." }, { property: "og:title", content: title }, { property: "og:url", content: `/${params.lang}/sustainability` }], links: [{ rel: "canonical", href: `/${params.lang}/sustainability` }] };
