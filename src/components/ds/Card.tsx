@@ -222,3 +222,178 @@ export function EmptyState({
     </div>
   );
 }
+
+/* ------------------------------------------------------------------
+ * Editorial layer — borderless, typographic pieces (presentation only)
+ * ------------------------------------------------------------------ */
+
+/**
+ * Single icon treatment for the editorial layer: no box, hairline stroke,
+ * one scale, one colour transition. Icons that carry no information
+ * should simply be omitted instead of rendered.
+ */
+export function LineIcon({
+  children,
+  className,
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <span
+      className={cn(
+        "inline-flex text-graphite/50 transition-colors duration-[520ms] ease-[var(--ease-brand)]",
+        "group-hover:text-champagne [&_svg]:size-7 [&_svg]:stroke-[0.9]",
+        className,
+      )}
+    >
+      {children}
+    </span>
+  );
+}
+
+/**
+ * Editorial card: no container box. A hairline rule, an index numeral,
+ * generous air and impeccable type. Used for value props and indexes.
+ */
+export function EditorialCard({
+  index,
+  icon,
+  title,
+  description,
+  footer,
+  onDark = false,
+  className,
+}: {
+  index?: string;
+  icon?: React.ReactNode;
+  title: React.ReactNode;
+  description?: React.ReactNode;
+  footer?: React.ReactNode;
+  onDark?: boolean;
+  className?: string;
+}) {
+  return (
+    <div className={cn("group relative h-full pt-7", className)}>
+      <span
+        className={cn(
+          "absolute left-0 top-0 h-px w-full origin-left transition-transform duration-[720ms] ease-[var(--ease-brand)]",
+          onDark ? "bg-ivory/15" : "bg-border",
+        )}
+      />
+      <span className="absolute left-0 top-0 h-px w-0 bg-champagne transition-[width] duration-[720ms] ease-[var(--ease-brand)] group-hover:w-full" />
+
+      <div className="flex items-center justify-between gap-4">
+        {index && <span className="type-index">{index}</span>}
+        {icon && <LineIcon className={onDark ? "text-ivory/45" : undefined}>{icon}</LineIcon>}
+      </div>
+
+      <h3 className={cn("mt-8 type-h3", onDark && "text-ivory")}>{title}</h3>
+      {description && (
+        <p className={cn("mt-4 type-body max-w-sm", onDark ? "text-ivory/65" : "text-muted-foreground")}>
+          {description}
+        </p>
+      )}
+      {footer && <div className="mt-7">{footer}</div>}
+    </div>
+  );
+}
+
+/**
+ * Editorial media piece: the photograph is the subject. Caption sits
+ * beneath the image in open space — never boxed on top of it.
+ */
+export function EditorialMedia({
+  image,
+  alt,
+  index,
+  title,
+  description,
+  action,
+  ratio = "4/5",
+  priority = false,
+  onDark = false,
+  className,
+}: {
+  image: string;
+  alt: string;
+  index?: string;
+  title: React.ReactNode;
+  description?: React.ReactNode;
+  action?: React.ReactNode;
+  ratio?: "16/9" | "3/2" | "4/3" | "4/5" | "1/1";
+  priority?: boolean;
+  onDark?: boolean;
+  className?: string;
+}) {
+  return (
+    <figure className={cn("group block", className)}>
+      <div
+        className="relative overflow-hidden bg-secondary/60"
+        style={{ aspectRatio: ratio.replace("/", " / ") }}
+      >
+        <img
+          src={image}
+          alt={alt}
+          loading={priority ? "eager" : "lazy"}
+          decoding="async"
+          className="media-zoom h-full w-full object-cover"
+        />
+      </div>
+      <figcaption className="pt-7">
+        <div className="flex items-baseline gap-4">
+          {index && <span className="type-index">{index}</span>}
+          <h3 className={cn("type-h3", onDark && "text-ivory")}>{title}</h3>
+        </div>
+        {description && (
+          <p className={cn("mt-4 max-w-md type-body", onDark ? "text-ivory/65" : "text-muted-foreground")}>
+            {description}
+          </p>
+        )}
+        {action && <div className="mt-6">{action}</div>}
+      </figcaption>
+    </figure>
+  );
+}
+
+/** Typographic index row — used where an icon would add nothing. */
+export function IndexRow({
+  index,
+  title,
+  meta,
+  onDark = false,
+  className,
+}: {
+  index?: string;
+  title: React.ReactNode;
+  meta?: React.ReactNode;
+  onDark?: boolean;
+  className?: string;
+}) {
+  return (
+    <div
+      className={cn(
+        "group flex items-baseline justify-between gap-6 border-t py-6 transition-colors duration-[420ms] ease-[var(--ease-brand)]",
+        onDark ? "border-ivory/12 hover:border-champagne/60" : "border-border hover:border-champagne",
+        className,
+      )}
+    >
+      <div className="flex items-baseline gap-5 min-w-0">
+        {index && <span className="type-index shrink-0">{index}</span>}
+        <span
+          className={cn(
+            "type-h4 truncate transition-colors duration-[420ms]",
+            onDark ? "text-ivory/90 group-hover:text-ivory" : "group-hover:text-graphite",
+          )}
+        >
+          {title}
+        </span>
+      </div>
+      {meta && (
+        <span className={cn("type-label shrink-0", onDark ? "text-ivory/45" : "text-muted-foreground")}>
+          {meta}
+        </span>
+      )}
+    </div>
+  );
+}
