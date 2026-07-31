@@ -15,7 +15,7 @@ export interface LeadInput {
 
 export async function submitLead(input: LeadInput): Promise<{ ok: boolean; error?: string }> {
   try {
-    const { error } = await supabase.from("leads").insert({
+    const lead = {
       name: input.name,
       email: input.email,
       message: input.message,
@@ -26,8 +26,23 @@ export async function submitLead(input: LeadInput): Promise<{ ok: boolean; error
       lang: input.lang ?? null,
       source: input.source ?? "contact-form",
       meta: (input.meta ?? {}) as never,
+    };
+
+    const { error: insertError } = await supabase.from("leads").insert(lead);
+    if (insertError) return { ok: false, error: insertError.message };
+
+    const { error: emailError } = await supabase.functions.invoke("send-contact-email", {
+      body: lead,
     });
-    if (error) return { ok: false, error: error.message };
+
+    if (emailError) {
+      console.error("Lead saved, but email notification failed:", emailError);
+      return {
+        ok: false,
+        error: "Your enquiry was saved, but the email notification could not be sent.",
+      };
+    }
+
     return { ok: true };
   } catch (e) {
     return { ok: false, error: e instanceof Error ? e.message : "unknown" };
